@@ -1,0 +1,30 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>TESTIMONIALS</h2>
+    <button (click)="openSaveUpdateDialog()" routerLinkActive="active" class="btn" title="Add Testimonials">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="testimonials-container">
+    <div class="col-sm-12" *ngFor="let rowObj of TestimonialsList">
+      <div class="testimonials">
+        <!-- <p class="testimonials-text">" {{ rowObj.text }} "</p> -->
+        <p class="testimonials-text" [innerHtml]="videosanitizer(rowObj.text)"></p>
+        <p class="testimonials-name">
+          {{ rowObj.name }}
+        </p>
+
+        <p class="testimonials-position">{{ rowObj.position }}</p>
+        <div class="action">
+          <a [routerLink]="['/testimonials_save_update', rowObj.idtestimonials]">
+            <i class="material-icons">edit</i>
+          </a>
+          <a (click)="activateConfirmFn(rowObj.idtestimonials)">
+            <i class="fa fa-trash "></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.banner-img img {
+  width: 100%;
+}
+.action {
+  text-align: center;
+  background: #dadada;
+}
+.action a {
+  font-size: 20px;
+  color: #000;
+  display: block;
+  padding: 10px;
+}

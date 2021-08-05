@@ -1,0 +1,47 @@
+<div class="jumbotron">
+  <div class="admin-page-container">
+    <div class="page-title">
+      <h2>Testimonials</h2>
+    </div>
+    <form [formGroup]="testimonialsObjFG" (ngSubmit)="saveFormEventSubmit()">
+      <div class="input-block col-sm-6">
+        <label class="input-label">Name <em>*</em></label>
+        <input type="text" class="input-text" formControlName="name" />
+        <custom-validation-messages class="input-error" [control]="testimonialsObjFG.controls.name">
+        </custom-validation-messages>
+      </div>
+      <div class="input-block col-sm-6">
+        <label class="input-label">Position <em>*</em></label>
+        <input type="text" class="input-text" formControlName="position" />
+        <custom-validation-messages class="input-error" [control]="testimonialsObjFG.controls.position">
+        </custom-validation-messages>
+      </div>
+
+      <div class="input-block testimonial-textarea col-sm-12">
+        <label class="input-label">Text <em>*</em></label>
+        <!-- <textarea type="text" class="input-textarea" formControlName="text">
+        </textarea> -->
+        <ckeditor debounce="500" formControlName="text" [config]="ckEdiorConfig">
+        </ckeditor>
+        <custom-validation-messages class="input-error" [control]="testimonialsObjFG.controls.text">
+        </custom-validation-messages>
+      </div>
+      <div class="button-set col-sm-12">
+        <span *ngIf="updateButton == false">
+          <button type="submit" class="btn">
+            Save
+          </button>
+        </span>
+        <span *ngIf="updateButton == true">
+          <button type="submit" class="btn">
+            Update
+          </button>
+        </span>
+
+        <button class="btn" (click)="onCancel()" type="reset">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

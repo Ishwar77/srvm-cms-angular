@@ -1,0 +1,7 @@
+<div [class.loader-hidden]="!show" class="spinner-overlay">
+  <div class="spinner">
+    <!-- <mat-progress-spinner class="example-margin" mode="indeterminate">
+    </mat-progress-spinner> -->
+    <loaders-css [loader]="'ball-rotate'" [loaderClass]="'my-loader'" *ngIf="show"></loaders-css>
+  </div>
+</div>

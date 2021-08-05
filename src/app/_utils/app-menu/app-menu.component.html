@@ -1,0 +1,159 @@
+<div>
+  <!-- UROLE_ADMIN_ID Menu -->
+
+  <ul class="top-nav-links" *ngIf="!roleId">
+    <li routerLink="/user" routerLinkActive="active" class="hdr-home-li">
+      {{ PageMessages.label_home }}
+    </li>
+    <li routerLink="/gallery_list" routerLinkActive="active">
+      {{ PageMessages.label_gallery }}
+    </li>
+
+
+    <li routerLink="/history" routerLinkActive="active">
+      History
+    </li>
+
+    <li routerLink="/user_event_list" routerLinkActive="active">
+      {{ PageMessages.label_event_list }}
+    </li>
+    <li routerLink="/admission" routerLinkActive="active">
+      Admission
+    </li>
+
+    <li routerLink="/donate" routerLinkActive="active">
+      {{ PageMessages.label_donate }}
+    </li>
+    <li routerLink="/aboutus" routerLinkActive="active">
+      About Us
+    </li>
+    <li routerLink="/contact-us" routerLinkActive="active">
+      {{ PageMessages.label_contact_us }}
+    </li>
+  </ul>
+  <ul class="absolute-nav-links" *ngIf="!roleId">
+    <!-- <li href="assets/PDFdownlod/SVRMHistroy.pdf" download="SRVMHistory">
+      Admission Form
+    </li> -->
+    <!-- <li routerLink="/login" routerLinkActive="active">
+      Login
+    </li> -->
+    <ng-container *ngIf="checkSession()">
+      <li>
+        <a href="assets/PDFdownlod/Application_for_Admission.pdf" download="Application Form">
+          Admission Form
+        </a>
+      </li>
+    </ng-container>
+    <li routerLink="/alumniRegistration" routerLinkActive="active">
+      Alumni Registration
+    </li>
+  </ul>
+
+  <ul class="top-nav-links" *ngIf="roleId === AppConstants.UROLE_MASTER_ID">
+    <!-- <li routerLink="/admin" routerLinkActive="active" class="hdr-home-li">
+      {{ PageMessages.label_home }}
+    </li> -->
+
+    <!-- <li routerLink="/student-excel-upload" routerLinkActive="active">
+      <span class="nav-icon icon12"></span>
+      {{ PageMessages.label_student_excel }}
+    </li> -->
+
+    <li routerLink="/alumniList" routerLinkActive="active">
+      {{ PageMessages.label_alumni_list }}
+    </li>
+
+    <li routerLink="/eventList" routerLinkActive="active">
+      {{ PageMessages.label_event_list }}
+    </li>
+    <li routerLink="/userList" routerLinkActive="active">
+      {{ PageMessages.label_user_list }}
+    </li>
+    <li routerLink="/gallery_list" routerLinkActive="active">
+      {{ PageMessages.label_gallery }}
+    </li>
+    <li routerLink="/history" routerLinkActive="active">
+      {{ PageMessages.label_history }}
+    </li>
+    <li routerLink="/banner_list" routerLinkActive="active">
+      <span class="nav-icon icon12"></span>
+      {{ PageMessages.label_banner }}
+    </li>
+    <li routerLink="/quotes_list" routerLinkActive="active">
+      <span class="nav-icon icon12"></span>
+      {{ PageMessages.label_quotes }}
+    </li>
+    <li routerLink="/testimonials_list" routerLinkActive="active">
+      {{ PageMessages.label_testimonials }}
+    </li>
+    <li routerLink="/admission" routerLinkActive="active">
+      Admission
+    </li>
+    <li routerLink="/aboutus" routerLinkActive="active">
+      About Us
+    </li>
+    <li routerLink="/donate" routerLinkActive="active">
+      {{ PageMessages.label_donate }}
+    </li>
+    <li routerLink="/contact-us" routerLinkActive="active">
+      {{ PageMessages.label_contact_us }}
+    </li>
+    <!-- <li routerLink="/gallery_category_list" routerLinkActive="active">
+      Gallery Category
+    </li> -->
+  </ul>
+
+  <ul class="top-nav-links" *ngIf="roleId === AppConstants.UROLE_ADMIN_ID">
+    <!-- <li routerLink="/admin" routerLinkActive="active" class="hdr-home-li">
+      {{ PageMessages.label_home }}
+    </li> -->
+
+    <!-- <li routerLink="/alumni-excel-upload" routerLinkActive="active">
+      {{ PageMessages.label_student_excel }}
+    </li> -->
+
+    <li routerLink="/alumniList" routerLinkActive="active">
+      {{ PageMessages.label_alumni_list }}
+    </li>
+
+    <li routerLink="/eventList" routerLinkActive="active">
+      {{ PageMessages.label_event_list }}
+    </li>
+
+    <li routerLink="/gallery_list" routerLinkActive="active">
+      {{ PageMessages.label_gallery }}
+    </li>
+    <li routerLink="/banner_list" routerLinkActive="active">
+      <span class="nav-icon icon12"></span>
+      {{ PageMessages.label_banner }}
+    </li>
+    <li routerLink="/quotes_list" routerLinkActive="active">
+      <span class="nav-icon icon12"></span>
+      {{ PageMessages.label_quotes }}
+    </li>
+    <li routerLink="/history" routerLinkActive="active">
+      {{ PageMessages.label_history }}
+    </li>
+    <li routerLink="/testimonials_list" routerLinkActive="active">
+      {{ PageMessages.label_testimonials }}
+    </li>
+    <li routerLink="/admission" routerLinkActive="active">
+      Admission
+    </li>
+
+    <li routerLink="/aboutus" routerLinkActive="active">
+      About Us
+    </li>
+    <li routerLink="/donate" routerLinkActive="active">
+      {{ PageMessages.label_donate }}
+    </li>
+
+    <li routerLink="/contact-us" routerLinkActive="active">
+      {{ PageMessages.label_contact_us }}
+    </li>
+    <!-- <li routerLink="/gallery_category_list" routerLinkActive="active">
+      Gallery Category
+    </li> -->
+  </ul>
+</div>

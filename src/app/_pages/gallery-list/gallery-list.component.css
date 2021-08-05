@@ -1,0 +1,59 @@
+ul.category-list li {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+ul.category-list li .list-content {
+  display: inline-block;
+  border: 10px solid #ffffff;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+  vertical-align: top;
+}
+ul.category-list li span.img {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #f3ede2;
+}
+ul.category-list li span.img span {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
+  margin-top: -16px;
+}
+ul.category-list li .img-title {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  font-weight: 700;
+}
+.action span {
+  padding: 5px 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+/* Media CSS -------------------------------------------------------------------------------------------*/
+@media (max-width: 768px) {
+  ul.category-list {
+    text-align: center;
+  }
+  .page-title {
+    text-align: center;
+  }
+  .page-title h2 {
+    display: block;
+    margin: 0 0 10px;
+  }
+}

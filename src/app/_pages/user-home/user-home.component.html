@@ -1,0 +1,307 @@
+<div class="hm-banner">
+  <owl-carousel [options]="{
+      items: 1,
+      dots: true,
+      navigation: true,
+      autoplay: true,
+      autoplayTimeout: 3000,
+      autoplayHoverPause: true,
+      loop: true
+    }"
+    [items]="bannerList" [carouselClasses]="['owl-theme', 'sliding']">
+    <div class="item" *ngFor="let rowObj of bannerList; let i = index">
+      <img class="slide-image" src="{{ 'assets/images/' + rowObj.banner_image }}" onError="this.src='assets/images/banner.jpg';" />
+    </div>
+    <!-- <div class="item">
+      <img src="assets/images/banner.jpg" />
+    </div>
+    <div class="item">
+      <img src="assets/images/banner.jpg" />
+    </div> -->
+  </owl-carousel>
+</div>
+<div class="hm-events">
+  <div class="hm-events">
+    <h2 *ngIf="eventListUpcoming.length > 0" class="hm-title">
+      Upcoming Events
+    </h2>
+
+    <div class="tab-content">
+      <div class="page-container">
+        <div class="event-container">
+          <div class="row">
+            <div class="col-sm-4" *ngFor="let rowObj of eventListUpcoming">
+              <div class="event-list-block">
+                <div class="event-img" [routerLink]="['/eventOverview', rowObj.idevent]">
+                  <!-- <img src="assets/images/event-img.jpg" /> -->
+                  <img src="{{ 'assets/images/' + rowObj.event_image }}" onError="this.src='assets/images/event-img.jpg';" />
+                  <span class="month-block" [class.upcoming]="getDateCompare(rowObj.start_date)">
+                    {{ getDate(rowObj.start_date) }}</span>
+                </div>
+                <h4 class="title">{{ rowObj.event_name }}</h4>
+                <p class="event-info date">
+                  <i class="fa fa-calendar "></i>
+                  {{ getDateFormat(rowObj.start_date) }} to
+                  {{ getDateFormat(rowObj.end_date) }}
+                </p>
+                <p class="event-info location">
+                  <i class="fa fa-map-marker"></i> {{ rowObj.location }}
+                </p>
+                <p class="event-short-desc">
+                  {{ rowObj.short_description }}
+                </p>
+                <div class="actions">
+                  <div class="event-user-info">
+                    <p>
+                      Publish Date :
+                      {{ getDateFormat(rowObj.published_start_date) }} -
+                      {{ getDateFormat(rowObj.published_end_date) }}
+                    </p>
+                    <p>
+                      Created : {{ getDateFormat(rowObj.create_timestamp) }} (
+                      {{ rowObj.created_by_first_name }}
+                      {{ rowObj.created_by_last_name }} )
+                    </p>
+                    <p *ngIf="rowObj.update_timestamp">
+                      Updated : {{ getDateFormat(rowObj.update_timestamp) }} (
+                      {{ rowObj.updated_by_first_name }}
+                      {{ rowObj.updated_by_last_name }} )
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hm-events">
+      <h2 *ngIf="eventListCompleted.length > 0" class="hm-title">
+        Completed Events
+      </h2>
+
+      <div class="tab-content">
+        <div class="page-container">
+          <div class="event-container">
+            <div class="row">
+              <div class="col-sm-4" *ngFor="let rowObj of eventListCompleted">
+                <div class="event-list-block">
+                  <div class="event-img" [routerLink]="['/eventOverview', rowObj.idevent]">
+                    <!-- <img src="assets/images/event-img.jpg" /> -->
+                    <img src="{{ 'assets/images/' + rowObj.event_image }}" onError="this.src='assets/images/event-img.jpg';" />
+                    <span class="month-block" [class.upcoming]="getDateCompare(rowObj.start_date)">
+                      {{ getDate(rowObj.start_date) }}</span>
+                  </div>
+                  <h4 class="title">{{ rowObj.event_name }}</h4>
+                  <p class="event-info date">
+                    <i class="fa fa-calendar "></i>
+                    {{ getDateFormat(rowObj.start_date) }} to
+                    {{ getDateFormat(rowObj.end_date) }}
+                  </p>
+                  <p class="event-info location">
+                    <i class="fa fa-map-marker"></i> {{ rowObj.location }}
+                  </p>
+                  <p class="event-short-desc">
+                    {{ rowObj.short_description }}
+                  </p>
+                  <div class="actions">
+                    <div class="event-user-info">
+                      <p>
+                        Publish Date :
+                        {{ getDateFormat(rowObj.published_start_date) }} -
+                        {{ getDateFormat(rowObj.published_end_date) }}
+                      </p>
+                      <p>
+                        Created : {{ getDateFormat(rowObj.create_timestamp) }} (
+                        {{ rowObj.created_by_first_name }}
+                        {{ rowObj.created_by_last_name }} )
+                      </p>
+                      <p *ngIf="rowObj.update_timestamp">
+                        Updated : {{ getDateFormat(rowObj.update_timestamp) }} (
+                        {{ rowObj.updated_by_first_name }}
+                        {{ rowObj.updated_by_last_name }} )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-all">
+        <a class="show-all" (click)="ViewEventDetail()">
+          Show All
+        </a>
+      </div>
+    </div>
+    <!-- <div class="hm-quotes">
+  <div class="quotes-content">
+    <p class="quotes-text">
+      Education is The Manifestation of The Perfection Already in Man
+    </p>
+    <div class="quotes-photo">
+      <img src="assets/images/saying-photo1.jpg" />
+    </div>
+    <p class="quotes-name">Swami Vivekananda</p>
+  </div>
+</div> -->
+    <div class="hm-quotes">
+      <div class="quotes-content-outer">
+        <owl-carousel [options]="{
+            items: 1,
+            dots: true,
+            navigation: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            loop: true
+          }"
+          [items]="quotesList" [carouselClasses]="['owl-carousel', 'owl-theme', 'sliding']">
+          <div class="item" *ngFor="let rowObj of quotesList">
+            <div class="quotes-content">
+              <p class="quotes-text">
+                {{ rowObj.text }}
+              </p>
+              <div class="quotes-photo">
+                <!-- <img src="assets/images/saying-photo1.jpg" /> -->
+                <img src="{{ 'assets/images/' + rowObj.quotes_image }}" onError="this.src='assets/images/saying-photo1.jpg';" />
+              </div>
+              <p class="quotes-name">{{ rowObj.name }}</p>
+            </div>
+          </div>
+        </owl-carousel>
+      </div>
+    </div>
+    <div class="hm-about-container">
+      <div class="col-sm-6">
+        <div class="hm-about-content">
+          <h3>The distinguishing features of the Mandiram</h3>
+          <p>
+            Seeking to give expression to Swami Vivekananda’s ideal of
+            "Man-making education", the Sri Ramakrishna Vidyarthi Mandiram was
+            started in 1943. It is a modern students home in the setting of an
+            ancient Brahmacharya Ashrama. The aim of the Mandiram is to
+            supplement the academic education of the university by imparting
+            training conducive to an all-round growth of the students. The
+            objective is to provide a suitable home for deserving boys from
+            outside Bangalore, who want to benefit from the care and guidance
+            of the Mandiram.
+          </p>
+        </div>
+      </div>
+      <div class="hm-about-block col-sm-6">
+        <ul class="about-icons clearfix">
+          <li>
+            <div class="icon">
+              <img src="assets/images/hm-about-icon1.png" />
+            </div>
+            <p>
+              An entirely non-communal and non-political outlook and atmosphere
+            </p>
+          </li>
+          <li>
+            <div class="icon">
+              <img src="assets/images/hm-about-icon2.png" />
+            </div>
+            <p>
+              Facilities provided for building up character and spiritual
+              life of the students
+            </p>
+          </li>
+          <li>
+            <div class="icon">
+              <img src="assets/images/hm-about-icon3.png" />
+            </div>
+            <p>Special stress on physical fitness and games</p>
+          </li>
+          <li>
+            <div class="icon">
+              <img src="assets/images/hm-about-icon4.png" />
+            </div>
+            <p>
+              Encouragement and opportunities for the development of talent
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hm-testimonials">
+      <div class="testimonials-content-outer">
+        <div class="hm-title">
+          <h2>FEW WORDS ABOUT SRVM</h2>
+        </div>
+        <owl-carousel [options]="{
+              items: 1,
+              dots: true,
+              navigation: true,
+              autoplay: true,
+              autoplayTimeout: 3000,
+              autoplayHoverPause: true,
+              loop: true
+            }"
+          [items]="TestimonialsList" [carouselClasses]="['owl-carousel', 'owl-theme', 'sliding']">
+          <div class="item" *ngFor="let rowObj of TestimonialsList">
+            <div class="testimonials-content">
+              <!-- <p class="testimonials-text"><span>"</span> {{ rowObj.text }} "</p> -->
+              <p class="testimonials-text" [innerHtml]="videosanitizerhtml(rowObj.text)"></p>
+              <p class="testimonials-name">{{ rowObj.name }}</p>
+              <p class="testimonials-Position">{{ rowObj.position }}</p>
+            </div>
+          </div>
+        </owl-carousel>
+
+      </div>
+    </div>
+    <div class="hm-gallery-container">
+      <div class="hm-title">
+        <h2>Gallery</h2>
+      </div>
+      <div class="hm-gallery-content">
+        <div *ngFor="let galleryObj of galleryList; let i = index" class="gallery-block" (click)="openDialogGallery(galleryList, i)">
+          <div *ngIf="galleryObj.image_type==='image'">
+            <div class="gallery-img" [style.backgroundImage]="
+              'url(' +
+              'assets/images/cms_image/gallery/thumb/' +
+              galleryObj.gallery_image +
+              ')'
+            "></div>
+
+
+            <div class="gallery-info">
+              <p class="img-cate" *ngIf="galleryObj.category_obj">
+                {{ galleryObj.category_obj.gallery_category_name }}
+              </p>
+
+              <p class="img-title">{{ galleryObj.title }}</p>
+            </div>
+          </div>
+          <div *ngIf="galleryObj.image_type==='video'">
+
+            <div class="gallery-img">
+              <div class="video-clickable"></div>
+              <iframe width="200px" height="200px" [src]="galleryObj.video_url" allowfullscreen>
+              </iframe>
+
+            </div>
+
+            <div class="gallery-info">
+              <p class="img-cate" *ngIf="galleryObj.category_obj">
+                {{ galleryObj.category_obj.gallery_category_name }}
+              </p>
+
+              <p class="img-title">{{ galleryObj.title }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-block more-block" (click)="ViewGalleryDetail()">
+          See More
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

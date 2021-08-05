@@ -1,0 +1,407 @@
+<div class="photo-crop-container" [class.hide-container]="!statusOpenImageDialog">
+  <div class="photo-crop-content bs-container">
+    <div class="col-sm-12 photo-crop-top">
+      <input type="file" id="selectImage" (change)="fileChangeEvent($event)" />
+      <div class="button-set">
+        <button class="btn btn-default btn-save" (click)="updateImage()">
+          Select
+        </button>
+        <button class="btn btn-warning btn-cancel" (click)="hideImageDialog()">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-8 col-height">
+      <p *ngIf="fileValidStatus" class="img-format-error">
+        Please select valid file type - (png, bmp, jpeg, jpg)
+      </p>
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+        [resizeToWidth]="200" format="jpg" (imageCropped)="imageCropped($event.base64)">
+      </image-cropper>
+    </div>
+    <div class="col-sm-3 col-height">
+      <img [src]="imageToSave" />
+    </div>
+  </div>
+</div>
+
+<div class="admin-page-container">
+  <div class="col-sm-12 st-form-heading">
+    <h2>Alumini Data</h2>
+    <div class="form-nav-bar"></div>
+  </div>
+  <!-- activeFormNo === 1 -->
+  <div class="row" *ngIf="activeFormNo === 1">
+    <form [formGroup]="studentObjFG" (ngSubmit)="saveFormStudentSubmit()">
+      <div *ngIf="statusImageUpload">
+        <div class="user-photo">
+          <span class="photo-area">
+            <img [src]="imageToSave" id="studentImage" onError="this.src='assets/images/user_avatar.png';" />
+          </span>
+          <span class="change-photo" (click)="showImageDialog()">Change Photo</span>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <h4>Personal Info <span id="idspan"> </span></h4>
+      </div>
+      <!-- <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">ID</label>
+          <input
+            type="text"
+            class="input-text"
+            formControlName="unique_id"
+            readonly
+          />
+          <custom-validation-messages
+            class="input-error"
+            [control]="studentObjFG.controls.unique_id"
+          ></custom-validation-messages>
+        </div>
+      </div> -->
+
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">First Name <em>*</em></label>
+          <input class="input-text" type="text" formControlName="first_name" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.first_name">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Last Name </label>
+          <input class="input-text" type="text" formControlName="last_name" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.last_name">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="mat-date-input col-sm-4 " style="min-height:80px">
+        <label class="input-label">DOB </label>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" formControlName="dob" readonly />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <custom-validation-messages class="input-error" class="input-error" [control]="studentObjFG.controls.dob">
+        </custom-validation-messages>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Blood Group </label>
+          <select class="input-select" formControlName="blood_group">
+            <option value="A  positive (A+)">A positive (A+)</option>
+            <option value="A  negative (A-)">A negative (A-)</option>
+            <option value="B  positive (B+)">B positive (B+)</option>
+            <option value="B  negative (B-)">B negative (B-)</option>
+            <option value="O  positive (O+)">O positive (O+)</option>
+            <option value="O  negative (O-)">O negative (O-)</option>
+            <option value="AB positive (AB+)">AB positive (AB+)</option>
+            <option value="AB negative (AB-)">AB negative (AB-)</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.blood_group">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Batch from <em>*</em></label>
+          <select (change)="generateYearsForDropDownTo()" class="input-select" formControlName="batch_from">
+            <option value="" selected>-- Select Option--</option>
+            <option [value]="itemObj" *ngFor="let itemObj of yearStringArrayfrom">{{ itemObj }}</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.batch_from">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Batch To <em>*</em></label>
+          <select class="input-select" formControlName="batch_to" (change)="getLastStudentSubmitted()">
+            <option value="" selected>-- Select Option--</option>
+            <option [value]="itemObj" *ngFor="let itemObj of yearStringArrayTo">{{ itemObj }}</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.batch_to">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+      <div class="col-sm-4 ">
+        <div class="mobile-block row">
+          <div class="input-block col-sm-5">
+            <label class="input-label">Code <em>*</em></label>
+
+            <select class="input-select" formControlName="mobile_number_one_code">
+              <option [value]="itemObj.dial_code + ' (' + itemObj.name + ')'" *ngFor="let itemObj of countriescode">
+                {{ itemObj.dial_code }} ({{ itemObj.name }})</option>
+            </select>
+
+            <custom-validation-messages class="input-error" [control]="studentObjFG.controls.mobile_number_one_code">
+            </custom-validation-messages>
+          </div>
+          <div class="input-block col-sm-7">
+            <label class="input-label">Mobile No 1 <em>*</em></label>
+            <input type="text" class="input-text" customMobileNumber formControlName="mobile_number_one" />
+            <custom-validation-messages class="input-error" [control]="studentObjFG.controls.mobile_number_one">
+            </custom-validation-messages>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 ">
+        <div class="mobile-block row">
+          <div class="input-block col-sm-5">
+            <label class="input-label">Code </label>
+            <select class="input-select" formControlName="mobile_number_two_code">
+              <option [value]="itemObj.dial_code + ' (' + itemObj.name + ')'" *ngFor="let itemObj of countriescode">
+                {{ itemObj.dial_code }} ({{ itemObj.name }})</option>
+            </select>
+
+            <custom-validation-messages class="input-error" [control]="studentObjFG.controls.mobile_number_two_code">
+            </custom-validation-messages>
+          </div>
+          <div class="input-block col-sm-7">
+            <label class="input-label">Mobile No 2</label>
+            <input type="text" class="input-text" customMobileNumber formControlName="mobile_number_two" />
+            <custom-validation-messages class="input-error" [control]="studentObjFG.controls.mobile_number_two">
+            </custom-validation-messages>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Email ID 1 <em>*</em></label>
+          <input type="text" class="input-text" formControlName="email_id_one" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.email_id_one">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Email ID 2</label>
+          <input type="text" class="input-text" formControlName="email_id_two" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.email_id_two">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <h4>Residential Address</h4>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Address Line 1 <em>*</em></label>
+
+          <input class="input-text" formControlName="residential_address_one" ng-model="residential_address_one" />
+
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_address_one">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Address Line 2 </label>
+          <input class="input-text" formControlName="residential_address_two" ng-model="residential_address_two" />
+
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_address_two">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">City <em>*</em></label>
+          <input type="text" class="input-text" formControlName="residential_city" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_city">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Country <em>*</em> </label>
+          <select class="input-select" formControlName="residential_country">
+            <option [value]="itemObj.name" *ngFor="let itemObj of countriescode">{{ itemObj.name }}</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_country">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Pincode <em>*</em></label>
+          <input type="text" class="input-text" customPincodeNumber formControlName="residential_pincode" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_pincode">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <h4>Permanent Address</h4>
+      </div>
+      <div class="col-sm-12">
+        <div class="">
+          <input type="checkbox" #myCheck (click)="checkClicked()" />
+          Same As Residential Address
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Address Line 1 <em>*</em></label>
+          <input class="input-text" formControlName="permanent_address_one" ng-model="permanent_address_one" />
+
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.permanent_address_one">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Address Line 2</label>
+          <input class="input-text" formControlName="permanent_address_two" ng-model="permanent_address_two" />
+
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.permanent_address_two">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">City <em>*</em></label>
+          <input type="text" class="input-text" formControlName="permanent_city" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.permanent_city">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Country <em>*</em></label>
+          <select class="input-select" formControlName="permanent_country">
+            <option [value]="itemObj.name" *ngFor="let itemObj of countriescode">{{ itemObj.name }}</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.residential_country">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Pincode <em>*</em></label>
+          <input type="text" class="input-text" customPincodeNumber formControlName="permanent_pincode" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.permanent_pincode">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <!-- <div class="input-block">
+        <label class="input-label">Designation</label>
+        <input type="text" class="input-text" formControlName="designation" />
+        <custom-validation-messages   class="input-error"
+          [control]="studentObjFG.controls.designation"
+        ></custom-validation-messages>
+      </div> -->
+      <div class="col-sm-12">
+        <h4>Professional Info</h4>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Company</label>
+          <input type="text" class="input-text" formControlName="company" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.company">
+          </custom-validation-messages>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-block ">
+          <label class="input-label">Academic <em>*</em></label>
+          <select (change)="clickeOther()" class="input-select" formControlName="designation">
+            <option value="Engineering">Engineering</option>
+            <option value="Medical">Medical</option>
+            <option value="Pure Sciences">Pure Sciences</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Arts">Arts</option>
+            <option value="Bsc. Ag">Bsc. Ag</option>
+            <option value="Law">Law</option>
+            <option value="Others" [selected]="Others">Others</option>
+          </select>
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.designation">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+      <div class="col-sm-4" *ngIf="SpeciedInputField == false">
+        <div class="input-block">
+          <label class="input-label">If others, please specify: </label>
+          <input type="text" class="input-text" formControlName="other" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.other">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="input-block">
+          <label class="input-label">Designation</label>
+          <input type="text" class="input-text" formControlName="occupation" />
+          <custom-validation-messages class="input-error" [control]="studentObjFG.controls.occupation">
+          </custom-validation-messages>
+        </div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="button-set">
+          <span *ngIf="updateButton == false">
+            <button type="submit" class="btn">
+              Next
+            </button>
+          </span>
+          <span *ngIf="updateButton == true">
+            <button type="submit" class="btn">
+              Update
+            </button>
+          </span>
+
+          <button class="btn" (click)="onCancelStudentForm()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- activeFormNo === 2 -->
+  <div *ngIf="activeFormNo === 2">
+    <div class="photo-crop-container" [class.hide-container]="!statusOpenImageDialog">
+      <div class="photo-crop-content bs-container">
+        <div class="col-sm-12 photo-crop-top">
+          <input type="file" id="selectImage" (change)="fileChangeEvent($event)" />
+          <div class="button-set">
+            <button class="btn btn-default btn-save" (click)="updateImage()">
+              Submit
+            </button>
+            <button class="btn btn-warning btn-cancel" (click)="hideImageDialog()">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-8 col-height">
+          <p *ngIf="fileValidStatus" class="img-format-error">
+            Please select valid file type - (png, bmp, jpeg, jpg)
+          </p>
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+            [resizeToWidth]="200" format="jpg" (imageCropped)="imageCropped($event.base64)">
+          </image-cropper>
+        </div>
+        <div class="col-sm-3 col-height">
+          <img [src]="imageToSave" />
+        </div>
+      </div>
+    </div>
+    <div class="input-block">
+      <div class="user-photo">
+        <span class="photo-area">
+          <img [src]="imageToSave" id="studentImage" onError="this.src='assets/images/user_avatar.png';" />
+        </span>
+        <span class="change-photo" (click)="showImageDialog()">Add Photo</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <button class="btn" (click)="submitButton()">
+    SUBMIT
+  </button> -->

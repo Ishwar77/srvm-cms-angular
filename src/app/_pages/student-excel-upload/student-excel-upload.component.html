@@ -1,0 +1,55 @@
+<div class="hr-container row">
+  <h1 class="main-page-hdr">
+    {{ PageMessages.heading_attendance_excel_upload }}
+  </h1>
+  <div class="white-block  col-sm-12">
+    <form
+      id="uploadForm"
+      [formGroup]="fgUploadExcelFile"
+      (ngSubmit)="fgUploadExcelFileSubmitFn()"
+    >
+      <div class="input-block col-sm-3">
+        <label class="input-label"
+          >{{ PageMessages.label_attendance_select_file }}
+          <em>*</em>
+          (Only xlxs file below 2 mb.)
+        </label>
+        <input
+          class="defult-fileupload"
+          type="file"
+          accept=".xlsx"
+          formControlName="docFile"
+          (change)="onFileChange($event)"
+        />
+        <!-- <span class="upload-file-link" onclick="document.getElementById('docFile').click()"></span> -->
+
+        <custom-validation-messages
+          class="input-error"
+          [control]="fgUploadExcelFile.controls.docFile"
+        ></custom-validation-messages>
+      </div>
+      <div class="input-block col-sm-3">
+        <label class="input-label">&nbsp; </label>
+        <button type="submit" class="btn btn-default">
+          {{ PageMessages.label_student_upload }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="input-block col-sm-12">
+    <div class="input-block col-sm-4"></div>
+    <div class="input-block col-sm-4">
+      <!-- <button type="button" class="btn btn-default">Download Sample Excel</button> -->
+      <a
+        href="assets/common_docs/student_data_sample.xlsx"
+        class="btn btn-default"
+        >{{ PageMessages.label_student_data_download_sample_excel }}</a
+      >
+    </div>
+  </div>
+</div>
+
+<button type="Click" (click)="onClickwriteExcle()">
+  Click
+</button>

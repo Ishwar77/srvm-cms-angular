@@ -1,0 +1,62 @@
+<div class="event-detail-container">
+  <button class="btn close-btn" (click)="onNoClick()">
+    <i class="material-icons">close</i>
+  </button>
+
+  <div class="event-detail">
+    <h4 class="title">{{ rowobj.event_name }}</h4>
+    <p class="event-info date">
+      <i class="fa fa-calendar "></i>
+      {{ getDateFormat(rowobj.start_date) }} to
+      {{ getDateFormat(rowobj.end_date) }}
+      <span class="event-info location">
+        <i class="fa fa-map-marker"></i> {{ rowobj.location }}
+      </span>
+    </p>
+  </div>
+  <div
+    class="event-img"
+    [class.col-sm-6]="!isImageOpen"
+    [class.col-sm-12]="isImageOpen"
+    (click)="isImageOpen = !isImageOpen"
+  >
+    <span class="view-icon full-view"
+      ><i class="material-icons">
+        fullscreen
+      </i></span
+    >
+    <span class="view-icon small-view"
+      ><i class="material-icons">
+        fullscreen_exit
+      </i></span
+    >
+    <!-- <img src="assets/images/event-img.jpg" /> -->
+    <img
+      src="{{ 'assets/images/' + rowobj.event_image }}"
+      onError="this.src='assets/images/event-img.jpg';"
+    />
+    <img
+      src="{{ 'assets/images/' + rowobj.event_image_two }}"
+      onError="this.src='assets/images/event-img.jpg';"
+    />
+    <img
+      src="{{ 'assets/images/' + rowobj.event_image_three }}"
+      onError="this.src='assets/images/event-img.jpg';"
+    />
+    <img
+      src="{{ 'assets/images/' + rowobj.event_image_four }}"
+      onError="this.src='assets/images/event-img.jpg';"
+    />
+    <img
+      src="{{ 'assets/images/' + rowobj.event_image_five }}"
+      onError="this.src='assets/images/event-img.jpg';"
+    />
+  </div>
+  <div
+    class="event-full-descr"
+    [class.col-sm-6]="!isImageOpen"
+    [class.col-sm-12]="isImageOpen"
+  >
+    <p [innerHtml]="rowobj.description"></p>
+  </div>
+</div>

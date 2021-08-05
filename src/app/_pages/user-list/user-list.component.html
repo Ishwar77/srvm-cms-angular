@@ -1,0 +1,93 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>{{ PageMessages.menu_label_User_list }}</h2>
+    <button
+      (click)="openSaveUpdateDialog()"
+      routerLinkActive="active"
+      class="btn"
+      title="Add Event"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="white-block">
+    <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+      <thead>
+        <th>
+          <strong>{{ PageMessages.name_label }}</strong>
+        </th>
+        <th>
+          <strong>Date Of Birth</strong>
+        </th>
+
+        <th>
+          <strong>Mobile Number</strong>
+        </th>
+        <th>
+          <strong>Email ID</strong>
+        </th>
+
+        <th>
+          <strong>Gender</strong>
+        </th>
+
+        <th></th>
+      </thead>
+      <tbody *ngIf="UserList?.length === 0">
+        <tr>
+          <td colspan="5">{{ AppMessages.no_data_found_message }}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="UserList?.length > 0">
+        <tr *ngFor="let rowObj of UserList">
+          <td>{{ rowObj.first_name }} {{ rowObj.last_name }}</td>
+          <td>{{ getDateFormat(rowObj.dob) }}</td>
+
+          <!-- <td>
+            {{ rowObj.dob }}
+          </td> -->
+
+          <td>
+            {{ rowObj.cell_number }}
+          </td>
+          <td>
+            {{ rowObj.email }}
+          </td>
+          <td>
+            {{ rowObj.gender }}
+          </td>
+
+          <td>
+            <!-- <button
+              type="button"
+              [routerLink]="['/user-update', rowObj.iduser]"
+              title="{{ AppMessages.edit_label }}"
+            >
+              <i class="material-icons">
+                edit
+              </i>
+            </button> -->
+            <button
+              *ngIf="rowObj.iduser != 1"
+              type="button"
+              (click)="activateConfirmFn(rowObj.iduser)"
+              title="{{ AppMessages.delete_label }}"
+            >
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ts-pagination-container">
+      <app-pagination
+        [count]="UserTotalDataCount"
+        [limit]="UserLimit"
+        [activePage]="UserCurrentPageno"
+        (changePageEvent)="getUserListByPageNo($event)"
+      >
+      </app-pagination>
+    </div>
+  </div>
+</div>

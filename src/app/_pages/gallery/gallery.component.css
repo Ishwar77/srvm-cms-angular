@@ -1,0 +1,99 @@
+.photo-crop-container {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+.photo-crop-content {
+  width: 60%;
+  min-height: 200px;
+  margin: 5% auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0;
+  height: 70%;
+  position: relative;
+  overflow-y: auto;
+}
+image-cropper {
+  height: 100%;
+  max-width: 100%;
+}
+.photo-crop-content div.col-height {
+  height: 80%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.photo-crop-top {
+  background: #dedede;
+  padding: 10px;
+}
+.photo-crop-top .button-set {
+  float: right;
+}
+.photo-crop-top .button-set .btn {
+  margin: 0 0 0 15px;
+}
+
+.photo-crop-container.hide-container {
+  display: none;
+}
+.staff-form {
+  padding: 40px;
+  margin-bottom: 30px;
+}
+span.photo-area {
+  background: #cacaca;
+  width: 200px;
+  height: auto;
+  border: 5px solid gray;
+  display: inline-block;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.5) inset;
+  max-width: 100%;
+}
+.parent-hdr {
+  font-size: 16px;
+}
+
+.user-photo {
+  text-align: center;
+}
+span.photo-area img {
+  width: 100%;
+  float: left;
+}
+span.change-photo {
+  display: block;
+  margin: 10px 0 0;
+  color: #24a6d8;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.image-result {
+  background: #cacaca;
+  width: 200px;
+  height: auto;
+  border: 5px solid gray;
+  display: inline-block;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.5) inset;
+  max-width: 100%;
+  min-height: 50px;
+}
+.image-result img {
+  width: 100%;
+  float: left;
+}
+.img-format-error {
+  color: #e84242;
+  font-weight: 700;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+

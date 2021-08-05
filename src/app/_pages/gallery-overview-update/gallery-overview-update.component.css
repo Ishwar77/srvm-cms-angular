@@ -1,0 +1,13 @@
+span.photo-area {
+  background: #cacaca;
+  width: 200px;
+  height: auto;
+  border: 5px solid gray;
+  display: inline-block;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.5) inset;
+  max-width: 100%;
+}
+
+.user-photo {
+  text-align: center;
+}

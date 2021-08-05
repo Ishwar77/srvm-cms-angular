@@ -1,0 +1,152 @@
+<div
+  class="photo-crop-container"
+  [class.hide-container]="!statusOpenImageDialog"
+>
+  <div class="photo-crop-content bs-container">
+    <div class="col-sm-12 photo-crop-top">
+      <input type="file" id="selectImage" (change)="fileChangeEvent($event)" />
+      <div class="button-set">
+        <button class="btn btn-default btn-save" (click)="updateImage()">
+          Submit
+        </button>
+        <button class="btn btn-warning btn-cancel" (click)="hideImageDialog()">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-8 col-height">
+      <p *ngIf="fileValidStatus" class="img-format-error">
+        Please select valid file type - (png, bmp, jpeg, jpg)
+      </p>
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        [resizeToWidth]="200"
+        format="jpg"
+        (imageCropped)="imageCropped($event.base64)"
+      >
+      </image-cropper>
+    </div>
+    <div class="col-sm-6 col-height">
+      <img [src]="imageToSave" />
+    </div>
+  </div>
+</div>
+
+<div class="admin-page-container">
+  <div *ngIf="activeFormNo === 1">
+    <form [formGroup]="quotesObjFG" (ngSubmit)="saveFormEventSubmit()">
+      <div *ngIf="statusImageUpload">
+        <div class="user-photo">
+          <span class="photo-area">
+            <img
+              src="{{ 'assets/images/' + quotesObj.quotes_image }}"
+              id="studentImage"
+              onError="this.src='assets/images/user_avatar.png';"
+            />
+          </span>
+          <span class="change-photo" (click)="showImageDialog()"
+            >change Photo</span
+          >
+        </div>
+      </div>
+
+      <div class="input-block col-sm-6">
+        <label class="input-label">Name <em>*</em></label>
+        <input type="text" class="input-text" formControlName="name" />
+        <custom-validation-messages
+          class="input-error"
+          [control]="quotesObjFG.controls.name"
+        ></custom-validation-messages>
+      </div>
+
+      <div class="input-block col-sm-6">
+        <label class="input-label">Text <em>*</em></label>
+        <textarea type="text" class="input-textarea" formControlName="text">
+        </textarea>
+        <custom-validation-messages
+          class="input-error"
+          [control]="quotesObjFG.controls.text"
+        ></custom-validation-messages>
+      </div>
+      <div class="button-set col-sm-12">
+        <span *ngIf="updateButton == false">
+          <button type="submit" class="btn">
+            Next
+          </button>
+        </span>
+        <span *ngIf="updateButton == true">
+          <button type="submit" class="btn">
+            Update
+          </button>
+        </span>
+
+        <button class="btn" (click)="onCancel()" type="reset">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- activeFormNo === 2 -->
+<div *ngIf="activeFormNo === 2">
+  <div
+    class="photo-crop-container"
+    [class.hide-container]="!statusOpenImageDialog"
+  >
+    <div class="photo-crop-content bs-container">
+      <div class="col-sm-12 photo-crop-top">
+        <input
+          type="file"
+          id="selectImage"
+          (change)="fileChangeEvent($event)"
+        />
+        <div class="button-set">
+          <button class="btn btn-default btn-save" (click)="updateImage()">
+            Select
+          </button>
+          <button
+            class="btn btn-warning btn-cancel"
+            (click)="hideImageDialog()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-8 col-height">
+        <p *ngIf="fileValidStatus" class="img-format-error">
+          Please select valid file type - (png, bmp, jpeg, jpg)
+        </p>
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1 / 1"
+          [resizeToWidth]="200"
+          format="jpg"
+          (imageCropped)="imageCropped($event.base64)"
+        >
+        </image-cropper>
+      </div>
+      <div class="col-sm-6 col-height">
+        <img [src]="imageToSave" />
+      </div>
+    </div>
+  </div>
+  <div class="input-block">
+    <div class="user-photo">
+      <span class="photo-area">
+        <img
+          [src]="imageToSave"
+          id="studentImage"
+          onError="this.src='assets/images/user_avatar.png';"
+        />
+      </span>
+      <span class="change-photo" (click)="showImageDialog()">Add Photo</span>
+    </div>
+  </div>
+</div>
+<!-- <button class="btn" (click)="submitButton()" *ngIf="activeFormNo === 2">
+  Submit
+</button> -->

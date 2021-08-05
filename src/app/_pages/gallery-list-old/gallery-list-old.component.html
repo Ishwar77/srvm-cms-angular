@@ -1,0 +1,86 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>Gallery</h2>
+    <button
+      *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+      (click)="openSaveUpdateDialog()"
+      routerLinkActive="active"
+      class="btn"
+      title="Add Event"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div id="block-system-main">
+    <div class="gallery-filters col-sm-3">
+      <ul class="filter-list">
+        <li>
+          <span
+            *ngIf="galleryCategory"
+            [class.active]="!galleryCategory.isActive"
+            (click)="galleryFilterClickAll(galleryCategory)"
+            >Select All</span
+          >
+        </li>
+        <li *ngFor="let rowObj of galleryCategory">
+          <span
+            [class.active]="!rowObj.isActive"
+            (click)="galleryFilterClick(rowObj, galleryCategory)"
+          >
+            {{ rowObj.gallery_category_name }}
+          </span>
+        </li>
+        <!-- <li>category 1</li>
+      <li>category 1</li> -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="col-sm-9" *ngIf="galleryList?.length === 0">
+      <h2>No Result Found</h2>
+    </div>
+    <div class="hm-gallery-content">
+      <div *ngIf="galleryList?.length > 0">
+        <div
+          *ngFor="let gallaryobj of galleryList"
+          class="gallery-block"
+          (click)="openDialogGallery(gallaryobj)"
+        >
+          <div
+            class="gallery-img"
+            [style.backgroundImage]="
+              'url(' + 'assets/images/' + gallaryobj.gallery_image + ')'
+            "
+          ></div>
+          <div class="gallery-info">
+            <p class="img-cate" *ngIf="gallaryobj.category_obj">
+              {{ gallaryobj.category_obj.gallery_category_name }}
+            </p>
+
+            <p class="img-title">{{ gallaryobj.title }}</p>
+            <button
+              *ngIf="
+                roleId === AppConstants.UROLE_MASTER_ID ||
+                roleId === AppConstants.UROLE_ADMIN_ID
+              "
+              type="button"
+              class="btn"
+              (click)="
+                $event.stopPropagation();
+                activateConfirmFn(gallaryobj.idgallery)
+              "
+              title="{{ AppMessages.delete_label }}"
+            >
+              <i class="fa fa-trash "></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

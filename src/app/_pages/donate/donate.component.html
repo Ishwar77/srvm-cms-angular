@@ -1,0 +1,32 @@
+<div class="container" *ngFor="let rowObj of donatelist">
+
+  <div class="donate-content">
+    <div class="donate-hdr">
+      <p>Help SRVM</p>
+      <h2>Please Donate Now</h2>
+    </div>
+
+    <div class="donate-text">
+      Account Details
+      <p><strong>Name </strong> : Sri Ramakrishna Vidyarthi Mandiram</p>
+      <p><strong>Bank </strong> : Syndicate</p>
+      <p><strong>Branch </strong> : Gavipuram Extn</p>
+      <p><strong>Account No </strong> : 04392010004252</p>
+      <p><strong>IFSC Code </strong> : SYNB0000439</p>
+    </div>
+  </div>
+  <div class="history-content">
+    <div class="h-content">
+      <div [innerHtml]="videosanitizer(rowObj.donate_text)"></div>
+    </div>
+  </div>
+  <div class="button-set">
+    <button *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+      type="button" class="btn" [routerLink]="['/donate_save_update', rowObj.iddonate]" title="{{ AppMessages.edit_label }}">
+      <i class="material-icons">edit</i>
+    </button>
+  </div>
+</div>

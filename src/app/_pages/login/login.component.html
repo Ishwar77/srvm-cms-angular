@@ -1,0 +1,60 @@
+<div class="gig-login-container" *ngIf="role === 0">
+  <!-- <div class="login-logo">
+    <a href="/"><img src="assets/icons/logo.png"/></a>
+  </div> -->
+  <div class="white-block login-form-container">
+    <h4 class="form-hdr">
+      {{ PageMessages.heading_login_srvm_login }}
+    </h4>
+    <form [formGroup]="fgLogin" (ngSubmit)="fgLoginSubmitFn()">
+      <div class="input-block">
+        <label
+          class="input-label"
+          [class.show-label]="fgLogin.controls.username.value"
+          >{{ PageMessages.label_login_username }}</label
+        >
+        <input
+          type="text"
+          class="input-text"
+          formControlName="username"
+          #username
+          placeholder="{{ PageMessages.label_login_username }}"
+          autofocus
+        />
+        <custom-validation-messages
+          class="input-error"
+          [control]="fgLogin.controls.username"
+        ></custom-validation-messages>
+      </div>
+      <div class="input-block">
+        <label
+          class="input-label"
+          [class.show-label]="fgLogin.controls.password.value"
+          >{{ PageMessages.label_login_password }}</label
+        >
+        <input
+          type="password"
+          class="input-text"
+          formControlName="password"
+          #password
+          placeholder="{{ PageMessages.label_login_password }}"
+        />
+        <custom-validation-messages
+          class="input-error"
+          [control]="fgLogin.controls.password"
+        ></custom-validation-messages>
+      </div>
+      <div>
+        <a routerLink="/forgot" routerLinkActive="active">
+          {{ PageMessages.label_login_forgot_your_password }}</a
+        >
+      </div>
+
+      <div class="button-set">
+        <button type="submit" class="btn">
+          {{ PageMessages.label_login }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="event-detail-container admin-page-container" *ngIf="eventList">
+  <div class="event-detail">
+    <h4 class="title">
+      {{ eventList.event_name }}
+      <button class="btn close-btn" (click)="onNoClick()">
+        <i class="material-icons">close</i>
+      </button>
+    </h4>
+    <p class="event-info date">
+      <i class="fa fa-calendar "></i>
+      {{ getDateFormat(eventList.start_date) }} to
+      {{ getDateFormat(eventList.end_date) }}
+      <span class="event-info location">
+        <i class="fa fa-map-marker"></i> {{ eventList.location }}
+      </span>
+    </p>
+  </div>
+  <div class="event-img" [class.col-sm-6]="!isImageOpen" [class.col-sm-12]="isImageOpen">
+    <!-- <img src="assets/images/event-img.jpg" /> -->
+    <div class="image-area" (click)="isImageOpen = !isImageOpen">
+      <span class="view-icon full-view"><i class="material-icons">
+          fullscreen
+        </i></span>
+      <span class="view-icon small-view"><i class="material-icons">
+          fullscreen_exit
+        </i></span>
+      <img src="{{ 'assets/images/' + eventList.event_image }}" *ngIf="eventList.event_image && imgId == 1" />
+      <img src="{{ 'assets/images/' + eventList.event_image_two }}" *ngIf="eventList.event_image_two && imgId == 2" />
+
+      <img src="{{ 'assets/images/' + eventList.event_image_three }}" *ngIf="eventList.event_image_three && imgId == 3" />
+
+      <img src="{{ 'assets/images/' + eventList.event_image_four }}" *ngIf="eventList.event_image_four && imgId == 4" />
+
+      <img src="{{ 'assets/images/' + eventList.event_image_five }}" *ngIf="eventList.event_image_five && imgId == 5" />
+    </div>
+    <div class="image-thumbs">
+      <span *ngIf="eventList.event_image">
+        <img (click)="showEventImage(1)" src="{{ 'assets/images/' + eventList.event_image }}" />
+      </span>
+      <span *ngIf="eventList.event_image_two">
+        <img (click)="showEventImage(2)" src="{{ 'assets/images/' + eventList.event_image_two }}" />
+      </span>
+      <span *ngIf="eventList.event_image_three">
+        <img (click)="showEventImage(3)" src="{{ 'assets/images/' + eventList.event_image_three }}" />
+      </span>
+      <span *ngIf="eventList.event_image_four">
+        <img (click)="showEventImage(4)" src="{{ 'assets/images/' + eventList.event_image_four }}" />
+      </span>
+      <span *ngIf="eventList.event_image_five">
+        <img (click)="showEventImage(5)" src="{{ 'assets/images/' + eventList.event_image_five }}" />
+      </span>
+    </div>
+    <!-- <owl-carousel
+      [options]="{
+        items: 1,
+        dots: true,
+        navigation: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: false,
+        loop: true
+      }"
+      [carouselClasses]="['owl-theme', 'sliding']"
+    >
+      <div class="item">
+        <img
+          class="slide-image"
+          *ngIf="eventList.event_image"
+          src="{{ 'assets/images/' + eventList.event_image }}"
+        />
+        <img
+          class="slide-image"
+          *ngIf="eventList.event_image"
+          src="{{ 'assets/images/' + eventList.event_image_five }}"
+        />
+      </div>
+      <div class="item">
+      <img src="assets/images/banner.jpg" />
+    </div>
+    <div class="item">
+      <img src="assets/images/banner.jpg" />
+    </div> 
+    </owl-carousel> -->
+  </div>
+
+  <div class="event-full-descr" [class.col-sm-6]="!isImageOpen" [class.col-sm-12]="isImageOpen">
+    <p [innerHtml]="videosanitizer(eventList.description)"></p>
+  </div>
+</div>

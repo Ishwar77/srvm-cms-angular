@@ -1,0 +1,18 @@
+<div class="container" *ngFor="let rowObj of Admissionlist">
+  <div class="history-content">
+
+    <div class="h-content">
+      <!-- <h1>About Us</h1> -->
+      <div [innerHtml]="videosanitizer(rowObj.content)"></div>
+    </div>
+  </div>
+  <div class="button-set">
+    <button *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+      type="button" class="btn" [routerLink]="['/admission_update', rowObj.idadmission]" title="{{ AppMessages.edit_label }}">
+      <i class="material-icons">edit</i>
+    </button>
+  </div>
+</div>

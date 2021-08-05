@@ -1,0 +1,79 @@
+<div class="account-container">
+  <h1><strong>Student Details </strong></h1>
+  <div class="info-shadow-block" *ngIf="StudentDetailsList">
+    <div class="user-photo-colum ">
+      <span class="user-photo">
+        <img
+          [src]="imageToSave"
+          onError="this.src='assets/images/user_avatar.png';"
+        />
+        <!-- <img [src]="accountDataForm.studentDetailsResponseDataForm.imgPath">-->
+      </span>
+    </div>
+    <p class="title">
+      Name:{{ StudentDetailsList.first_name }}
+      {{ StudentDetailsList.last_name }}
+    </p>
+
+    <p class="discipline-info">
+      Dob :{{ getDateFormat(StudentDetailsList.dob) }}
+    </p>
+    <p class="discipline-info">
+      Mobile Number: {{ StudentDetailsList.mobile_number_one }},{{
+        StudentDetailsList.mobile_number_two
+      }}
+    </p>
+    <p class="discipline-info">
+      emaild_id: {{ StudentDetailsList.email_id_one }},
+      {{ StudentDetailsList.email_id_two }}
+    </p>
+
+    <p class="discipline-info">
+      Residential Address 1: {{ StudentDetailsList.residential_address_one }}
+    </p>
+    <p class="discipline-info">
+      Residential Address 2: {{ StudentDetailsList.residential_address_two }}
+    </p>
+    <p class="discipline-info">
+      Permanent Address 1: {{ StudentDetailsList.permanent_address_one }}
+    </p>
+    <p class="discipline-info">
+      Permanent Address 2: {{ StudentDetailsList.permanent_address_two }}
+    </p>
+
+    <p class="discipline-info">
+      Designation: {{ StudentDetailsList.designation }}
+      {{ StudentDetailsList.other }}
+    </p>
+    <p class="discipline-info">
+      Occupation:{{ StudentDetailsList.occupation }}
+    </p>
+
+    <p class="date">
+      Batch: From<strong>
+        {{ getDateFormat(StudentDetailsList.batch_from) }}</strong
+      >
+      To
+      <strong> {{ getDateFormat(StudentDetailsList.batch_to) }}</strong>
+    </p>
+    <button
+      type="button"
+      class="btn"
+      [routerLink]="['/alumniSave', StudentDetailsList.idstudent]"
+      title="{{ AppMessages.edit_label }}"
+    >
+      <i class="material-icons">edit</i>
+    </button>
+    <button
+      type="button"
+      class="btn"
+      (click)="activateConfirmFn(StudentDetailsList.idstudent)"
+      title="{{ AppMessages.delete_label }}"
+    >
+      <i class="material-icons">delete</i>
+    </button>
+    <button class="btn" (click)="onCancel()" type="reset">
+      Cancel
+    </button>
+  </div>
+</div>

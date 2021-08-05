@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <form [formGroup]="AdmissionObjFG" (ngSubmit)="saveFormAdmissionSubmit()">
+    <div class="col-sm-12">
+      <!-- <label class="input-label">Admission</label> -->
+
+      <ckeditor debounce="500" formControlName="content" [config]="ckEdiorConfig">
+      </ckeditor>
+
+      <custom-validation-messages class="input-error" [control]="AdmissionObjFG.controls.content">
+      </custom-validation-messages>
+    </div>
+
+    <div class="button-set col-sm-12">
+      <span *ngIf="updateButton == true">
+        <button type="submit" class="btn">
+          Update
+        </button>
+      </span>
+
+      <button class="btn" (click)="onCancel()" type="reset">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

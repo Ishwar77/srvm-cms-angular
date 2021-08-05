@@ -1,0 +1,24 @@
+.mat-menu-panel {
+  min-height: 325px !important;
+}
+ul.absolute-nav-links {
+  position: absolute;
+  background: #b55616;
+  top: -10px;
+  right: 10px;
+  border-radius: 0 0 4px 4px;
+}
+.absolute-nav-links li {
+  display: inline-block;
+  padding: 5px 15px;
+  cursor: pointer;
+  color: #fdecb4;
+  text-decoration: none;
+}
+.absolute-nav-links li:first-child {
+  border-right: 1px solid #d87b2d;
+}
+.absolute-nav-links li a {
+  color: #fdecb4;
+  text-decoration: none;
+}

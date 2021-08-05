@@ -1,0 +1,204 @@
+<div class="page-container" [class.page-registration]="isRegistrationPage">
+  <!-- Header Starts-->
+  <div class="header-container" *ngIf="!isLoginPage">
+    <div class="header">
+      <a href="/" class="logo" title="SRVM">
+        <img class="logo-img" src="assets/logo.png" alt="{{ title }}" />
+        <div class="logo-text">
+          <div class="big-text">SRI RAMAKRISHNA</div>
+          <div class="vm-text">VIDYARTHI MANDIRAM</div>
+          <div class="location-text">Bangalore, India</div>
+        </div>
+      </a>
+      <div *ngIf="role" class="form-show-container">
+        <input type="checkbox" [(ngModel)]="booleanValue" data-md-icheck (change)="toggleVisibility($event)" />
+        Show Admission Form
+        <!-- <span *ngIf="booleanValue">Visible</span><span *ngIf="!booleanValue">Unvisible</span> -->
+      </div>
+      <!-- Top Nav -->
+      <div class="top-nav-container">
+        <app-menu></app-menu>
+      </div>
+
+      <div class="mobile-nav-container">
+        <span [matMenuTriggerFor]="mobileMenu">
+          <i class="material-icons">
+            more_vert
+          </i>
+        </span>
+        <mat-menu #mobileMenu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+          <ng-template matMenuContent>
+            <!-- UROLE_ADMIN_ID Menu -->
+
+            <ul *ngIf="!roleId">
+              <li mat-menu-item routerLink="/user" routerLinkActive="active">
+                {{ AppMenuMessages.label_home }}
+              </li>
+              <li mat-menu-item routerLink="/gallery_list" routerLinkActive="active">
+                {{ AppMenuMessages.label_gallery }}
+              </li>
+              <li mat-menu-item routerLink="/history" routerLinkActive="active">
+                History
+              </li>
+
+              <li mat-menu-item routerLink="/user_event_list" routerLinkActive="active">
+                {{ AppMenuMessages.label_event_list }}
+              </li>
+
+              <li mat-menu-item routerLink="/donate" routerLinkActive="active">
+                {{ AppMenuMessages.label_donate }}
+              </li>
+              <li mat-menu-item routerLink="/contact-us" routerLinkActive="active">
+                {{ AppMenuMessages.label_contact_us }}
+              </li>
+            </ul>
+            <ul *ngIf="!roleId">
+              <li mat-menu-item routerLink="/admissionForm" routerLinkActive="active">
+                Admission Form
+              </li>
+              <li mat-menu-item routerLink="/alumniRegistration" routerLinkActive="active">
+                Alumni Registration
+              </li>
+            </ul>
+
+            <ul *ngIf="roleId === AppConstants.UROLE_MASTER_ID">
+              <li mat-menu-item routerLink="/alumniList" routerLinkActive="active">
+                {{ AppMenuMessages.label_alumni_list }}
+              </li>
+
+              <li mat-menu-item routerLink="/eventList" routerLinkActive="active">
+                {{ AppMenuMessages.label_event_list }}
+              </li>
+              <li mat-menu-item routerLink="/userList" routerLinkActive="active">
+                {{ AppMenuMessages.label_user_list }}
+              </li>
+              <li mat-menu-item routerLink="/gallery_list" routerLinkActive="active">
+                {{ AppMenuMessages.label_gallery }}
+              </li>
+              <li mat-menu-item routerLink="/history" routerLinkActive="active">
+                History
+              </li>
+              <li mat-menu-item routerLink="/banner_list" routerLinkActive="active">
+                <span class="nav-icon icon12"></span>
+                {{ AppMenuMessages.label_banner }}
+              </li>
+              <li mat-menu-item routerLink="/quotes_list" routerLinkActive="active">
+                <span class="nav-icon icon12"></span>
+                {{ AppMenuMessages.label_quotes }}
+              </li>
+              <li mat-menu-item routerLink="/contact-us" routerLinkActive="active">
+                {{ AppMenuMessages.label_contact_us }}
+              </li>
+              <li routerLink="/gallery_category_list" routerLinkActive="active">
+                Gallery Category
+              </li>
+            </ul>
+
+            <ul class="top-nav-links" *ngIf="roleId === AppConstants.UROLE_ADMIN_ID">
+              <li mat-menu-item routerLink="/alumni-excel-upload" routerLinkActive="active">
+                {{ AppMenuMessages.label_student_excel }}
+              </li>
+              <li mat-menu-item routerLink="/alumniList" routerLinkActive="active">
+                {{ AppMenuMessages.label_alumni_list }}
+              </li>
+              <li mat-menu-item routerLink="/eventList" routerLinkActive="active">
+                {{ AppMenuMessages.label_event_list }}
+              </li>
+              <li mat-menu-item routerLink="/userList" routerLinkActive="active">
+                {{ AppMenuMessages.label_user_list }}
+              </li>
+              <li mat-menu-item routerLink="/gallery_list" routerLinkActive="active">
+                {{ AppMenuMessages.label_gallery }}
+              </li>
+              <li mat-menu-item routerLink="/history" routerLinkActive="active">
+                History
+              </li>
+              <li mat-menu-item routerLink="/contact-us" routerLinkActive="active">
+                {{ AppMenuMessages.label_contact_us }}
+              </li>
+            </ul>
+          </ng-template>
+        </mat-menu>
+      </div>
+
+
+      <!-- Header Details Login -->
+      <div class="header-right" *ngIf="showLoginLinkFlag">
+        <button type="button" routerLink="/login/worker" class="login-hdr-btn btn">
+          Login
+        </button>
+      </div>
+
+      <!-- Header Details and Menu -->
+      <!-- <input type="checkbox" (click)="onClickMe()">Admission Form Open<br> -->
+
+      <div class="header-right" *ngIf="role">
+
+        <div class="gig-w-top-nav-info" *ngIf="role" [matMenuTriggerFor]="profileMenu">
+          <div class="gig-w-photo">
+            <span class="photo-area">
+              <img id="userSessionImage" name="userSessionImage" class="user-session-image" src="assets/images/Tiger.jpg" />
+            </span>
+          </div>
+          <p class="usr-info-hdr welcome-msg">Welcome</p>
+          <p class="gig-w-name usr-info-hdr usersession-name" id="userSessionName" *ngIf="userSession?.first_name">
+            {{ userSession.first_name }}
+          </p>
+          <p class="gig-w-name usr-info-hdr usersession-name" id="userSessionName" *ngIf="!userSession?.first_name">
+            User
+          </p>
+          <span class="arrow-link"><span></span></span>
+
+          <mat-menu #profileMenu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+            <ng-template matMenuContent>
+              <ul class="pop-up-menu-list">
+                <li (click)="usersaveupdate()">
+                  User Profile
+                </li>
+                <li (click)="changePassword()">
+                  Change Password
+                </li>
+                <li (click)="logout()">Logout</li>
+              </ul>
+            </ng-template>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header Starts-->
+
+  <div class="main-container">
+    <div [class.gig-w-container]="role === AppConstants.UROLE_GIG_WORKER_ID">
+      <div [class.gig-w-nav-content]="role === AppConstants.UROLE_GIG_WORKER_ID" *ngIf="isSideNavVisible">
+        <app-menu></app-menu>
+      </div>
+
+      <div class="body-container">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="container-fluid">
+        <div class="footer">
+          <p class="copyright">
+            Copyright &copy; 2018. All rights reserved.
+          </p>
+          <p class="privacy">
+            <!-- <a target="_blank" (click)="openPrivacyPolicyPage()"
+            >Privacy Policy</a
+          > -->
+            <a routerLink="/privacy-policy-page">Privacy Policy</a>
+            |
+            <!-- <a (click)="openTermsOfUsePage()">Terms of Use</a> -->
+            <a routerLink="/term-of-use">Terms of Use</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#" #dwnldLnk id="dwnldLnk" download="123" style="visibility: hidden;height: 0;">Privacy Policy</a>
+<!-- Loader -->
+<app-spinner></app-spinner>
+<!-- Snotify For Notification -->
+<ng-snotify></ng-snotify>

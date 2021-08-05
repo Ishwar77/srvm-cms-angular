@@ -1,0 +1,64 @@
+<div class="admin-page-container">
+  <div class="page-title" *ngIf="galleryCategoryList">
+    <h2>Gallery - {{ galleryCategoryList.gallery_category_name }}</h2>
+    <button class="btn" (click)="goBack()">Back</button>
+    <button *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+      [routerLink]="['/gallery', galleryCategoryList.idcategory]" class="btn" title="Add Images">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div>
+    <ul class="gallery-list-byid">
+      <li *ngFor="let gallaryobj of galleryList; let i = index" (click)="openDialogGallery(galleryList, i)">
+
+        <div *ngIf='gallaryobj.image_type==="image"'>
+          <div class="list-content">
+            <span class="img" [style.backgroundImage]="
+              'url(' +
+              'assets/images/cms_image/gallery/thumb/' +
+              gallaryobj.gallery_image +
+              ')'
+            "></span>
+            <p class="img-title">{{ gallaryobj.title }}</p>
+          </div>
+        </div>
+
+        <div *ngIf='gallaryobj.image_type==="video"'>
+          <!-- <div class="list-content" [innerHTML]="videosanitizer(gallaryobj.video_url)"> -->
+          <div class="list-content">
+            <div class="gallery-img">
+              <div class="video-clickable"></div>
+              <iframe width="200px" height="200px" [src]="gallaryobj.video_url">
+              </iframe>
+            </div>
+            <p class="img-title">{{ gallaryobj.title }}</p>
+          </div>
+        </div>
+
+        <div class="action" *ngIf=" 
+            roleId === AppConstants.UROLE_MASTER_ID ||
+            roleId === AppConstants.UROLE_ADMIN_ID
+          ">
+          <span (click)="$event.stopPropagation();" [routerLink]=" ['/gallery_overview_update',  gallaryobj.idgallery]"><i
+              class="material-icons ">edit</i></span>
+          <span><i (click)="$event.stopPropagation(); activateConfirmFn(gallaryobj)" class="fa fa-trash "></i></span>
+        </div>
+
+
+        <!-- <div class="action">
+          <a [routerLink]="['/Quotes', rowObj.idquotes]">
+            <i class="material-icons">edit</i>
+          </a>
+          <a (click)="activateConfirmFn(rowObj.idquotes)">
+            <i class="fa fa-trash "></i>
+          </a>
+        </div> -->
+      </li>
+    </ul>
+  </div>
+
+
+</div>

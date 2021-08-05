@@ -1,0 +1,36 @@
+.history-container {
+  background: url(../../../assets/images/history-bg.png) no-repeat 0 0;
+  min-height: 725px;
+  padding: 0 0 0 425px;
+}
+.history-content {
+  background: #fdecb4;
+  min-height: 300px;
+}
+.history-sm-banner {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #c9b889;
+}
+.h-content {
+  padding: 30px 50px;
+}
+h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.history-sm-banner img {
+  max-width: 100%;
+}
+/* Media CSS -------------------------------------------------------------------------------------------*/
+@media (max-width: 768px) {
+  .history-container {
+    padding: 0;
+  }
+  .history-sm-banner img {
+    width: 100%;
+  }
+  .h-content {
+    padding: 20px;
+  }
+}

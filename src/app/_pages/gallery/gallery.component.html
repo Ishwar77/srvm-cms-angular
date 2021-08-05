@@ -1,0 +1,118 @@
+<div class="jumbotron">
+  <div class="admin-page-container">
+    <div *ngIf="activeFormNo === 1">
+      <form [formGroup]="galleryObjFG" (ngSubmit)="saveFormEventSubmit()">
+        <div class="input-block col-sm-6">
+          <label class="input-label">Title <em>*</em></label>
+          <input type="text" class="input-text" formControlName="title" />
+          <custom-validation-messages class="input-error" [control]="galleryObjFG.controls.title">
+          </custom-validation-messages>
+        </div>
+        <!-- 
+        <div class="input-block col-sm-6">
+          <label class="input-label">Category</label>
+          <input type="text" class="input-text" formControlName="category" />
+
+         
+        </div> -->
+
+        <!-- <div class="input-block col-sm-6">
+          <label class="input-label">Category <em>*</em></label>
+          <select class="input-select" formControlName="category">
+            <option
+              *ngFor="let rowObj of galleryCategory"
+              [value]="rowObj.idcategory"
+            >
+              {{ rowObj.gallery_category_name }}</option
+            >
+          </select>
+          <custom-validation-messages
+            class="input-error"
+            [control]="galleryObjFG.controls.category"
+          ></custom-validation-messages>
+        </div> -->
+
+        <div class="input-block col-sm-6">
+          <label class="input-label">Select Image type</label>
+          <input type="radio" formControlName="image_type" value="image" (click)="clickRadio('image') "
+            [checked]="galleryObj.image_type=='image'">
+          Image<br>
+          <input type="radio" formControlName="image_type" value="video" (click)="clickRadio('video')"
+            [checked]="galleryObj.image_type=='video'">Video<br>
+        </div>
+
+        <div class="input-block col-sm-6" *ngIf="galleryImagetype==true">
+          <label class="input-label">Paste video URL<em>*</em></label>
+          <input type="text" class="input-text" formControlName="video_url">
+        </div>
+
+
+
+
+
+
+
+        <div class="button-set col-sm-12">
+          <span *ngIf="updateButton == false">
+            <button type="submit" class="btn">
+              Save
+            </button>
+          </span>
+          <span *ngIf="updateButton == true">
+            <button type="submit" class="btn">
+              Update
+            </button>
+          </span>
+
+          <button class="btn" (click)="onCancelForm()" type="reset">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- activeFormNo === 2 -->
+    <div *ngIf="activeFormNo === 2 && galleryImagetype==false">
+
+      <div class="photo-crop-container" [class.hide-container]="!statusOpenImageDialog">
+        <div class="photo-crop-content bs-container">
+          <div class="col-sm-12 photo-crop-top">
+            <input type="file" id="selectImage" (change)="fileChangeEvent($event)" />
+            <div class="button-set">
+              <button class="btn btn-default btn-save" (click)="updateImage()">
+                Select
+              </button>
+              <button class="btn btn-warning btn-cancel" (click)="hideImageDialog()">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div class="col-sm-8 col-height">
+            <p *ngIf="fileValidStatus" class="img-format-error">
+              Please select valid file type - (png, bmp, jpeg, jpg, gif)
+            </p>
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [resizeToWidth]="1400"
+              format="jpg" (imageCropped)="imageCropped($event.base64)">
+            </image-cropper>
+          </div>
+          <div class="col-sm-6 col-height">
+            <img [src]="imageToSave" />
+          </div>
+        </div>
+      </div>
+      <div class="input-block">
+        <div class="user-photo">
+          <span class="photo-area">
+            <img [src]="imageToSave" id="studentImage" onError="this.src='assets/images/user_avatar.png';" />
+          </span>
+          <span class="change-photo" (click)="showImageDialog()">Add Photo</span>
+        </div>
+      </div>
+      <!-- <div class="form-btn-set">
+        <button  class="btn" (click)="submitButton()">
+          Submit
+        </button>
+      </div> -->
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,50 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>QUOTES</h2>
+    <button
+      (click)="openSaveUpdateDialog()"
+      routerLinkActive="active"
+      class="btn"
+      title="Add Event"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <!-- <div *ngFor="let bannerobj of bannerList">
+    <div class="event-img">
+      <div class="user-photo-colum ">
+        <span class="user-photo">
+          <img
+            src="{{ 'assets/images/' + bannerobj.gallery_image }}"
+            onError="this.src='assets/images/user_avatar.png';"
+          />
+        </span>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="quotes-container">
+    <div class="col-sm-12" *ngFor="let rowObj of quotesList">
+      <div class="quote">
+        <div class="quotes-text">
+          <p>{{ rowObj.text }}</p>
+        </div>
+        <div class="quotes-photo ">
+          <img
+            src="{{ 'assets/images/' + rowObj.quotes_image }}"
+            onError="this.src='assets/images/user_avatar.png';"
+          />
+        </div>
+        <p class="quotes-name">{{ rowObj.name }}</p>
+        <div class="action">
+          <a [routerLink]="['/Quotes', rowObj.idquotes]">
+            <i class="material-icons">edit</i>
+          </a>
+          <a (click)="activateConfirmFn(rowObj.idquotes)">
+            <i class="fa fa-trash "></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

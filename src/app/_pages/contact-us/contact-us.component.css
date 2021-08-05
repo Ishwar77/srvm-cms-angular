@@ -1,0 +1,97 @@
+.temp {
+  background: url(../../../assets/images/contactus.jpg) no-repeat center -116px;
+  width: 100%;
+  height: 740px;
+}
+
+.contact-us-map {
+  padding: 0px 30px;
+}
+.contact-info {
+  padding: 0 30px 20px 30px;
+}
+.contact-info .info-block {
+  padding: 10px 10px 10px 65px;
+  border: 1px solid #dadada;
+  border-bottom: 0;
+  min-height: 35px;
+}
+.contact-info .info-block:last-child {
+  border-bottom: 1px solid #dadada;
+}
+.contact-info .info-block.address-block {
+  background: url(../../../assets/images/contact-icon1.png) no-repeat 15px 10px;
+}
+.contact-info .info-block.phone-block {
+  background: url(../../../assets/images/contact-icon3.png) no-repeat 15px 10px;
+}
+.contact-info .info-block.whatsapp-block {
+  background: url(../../../assets/images/contact-icon3.png) no-repeat 15px 10px;
+}
+.contact-info .info-block.email-block {
+  background: url(../../../assets/images/contact-icon2.png) no-repeat 15px 10px;
+}
+
+
+.contact-info strong {
+  display: block;
+}
+.donate-content {
+  background:  no-repeat
+    #2a2c3a 100% 0;
+  min-height: 80px;
+  padding-right: 218px;
+  margin: 30px 0 0;
+  color: #fff;
+}
+.donate-hdr {
+  background: #d87b2d;
+  padding: 10px 20px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.donate-hdr p {
+  font-size: 20px;
+  font-weight: 700;
+}
+.donate-text {
+  padding: 20px;
+}
+
+agm-map {
+  height: 300px;
+}
+
+.contact-us-map {
+  margin: 30px 0 0;
+}
+
+.contact-us-container {
+  padding: 0 40px;
+}
+.contact-hdr {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 10px 0 10px;
+}
+/* Media CSS -------------------------------------------------------------------------------------------*/
+@media (max-width: 768px) {
+  .contact-us-container {
+    padding: 0;
+  }
+  .contact-us-map {
+    padding: 0px 5px;
+  }
+  .contact-info {
+    padding: 0 5px 20px 5px;
+  }
+  .donate-content {
+    background-image: none;
+    padding: 0;
+    margin: 10px 5px 0;
+  }
+  .contact-us-form {
+    padding: 10px 5px;
+  }
+}

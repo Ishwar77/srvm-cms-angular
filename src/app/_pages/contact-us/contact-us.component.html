@@ -1,0 +1,141 @@
+<div class="contact-us-container">
+  <div class="col-md-6">
+    <div class="contact-us-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62215.72960085311!2d77.53606275668943!3d12.9409091769458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15f4280b2a67%3A0xdde593134cb57a83!2sSri+Ramakrishna+Vidyarthi+Mandiram!5e0!3m2!1sen!2sin!4v1562048339646!5m2!1sen!2sin"
+      width="100%" height="280" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div class="contact-info">
+      <div class="info-block address-block">
+        <p>
+          <strong>Address</strong>
+          Sri Ramakrishna Vidyarthi Mandiram <br>
+          Gavipuram extn, Bengaluru - 560019
+        </p>
+      </div>
+      <div class="info-block email-block">
+        <p>
+          <strong>Email</strong>
+          vidyarthi.mandiram@gmail.com
+        </p>
+      </div>
+      <div class="info-block phone-block">
+        <!-- <p>
+          <strong>Phone</strong>
+          080-26675351, 080-26671265
+        </p> -->
+        <p>
+          <strong>Phone</strong>
+          080-26675351/ 52/ 56
+        </p>
+      </div>
+      <div class="info-block whatsapp-block">
+        <p>
+          <strong>Whatsapp</strong>
+          +91-9606-888-999
+        </p>
+      </div>
+      <div class="info-block " style="padding-left:60px">
+        <p>
+          <strong>Office Hours</strong> </p>
+        <p>10:00 am - 02:00 pm </p>
+        <p>03:00 pm - 06:00 pm</p>
+        <p> All 7 days </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+
+    <!--
+      <div class="donate-text">
+        Account Details
+        <p><strong>Name </strong> : Sri Ramakrishna Vidyarthi Mandiram</p>
+        <p><strong>Branch </strong> : Gavipuram Extn</p>
+        <p><strong>Account No </strong> : 04392010004252</p>
+        <p><strong>IFSC Code </strong> : SYNB0000439</p>
+      </div>
+    </div> -->
+
+    <div class="contact-us-form">
+      <div class="row">
+        <div class="col-md-12 ">
+          <h1 class="contact-hdr">Contact Us</h1>
+        </div>
+        <form [formGroup]="contactFG" (ngSubmit)="saveFormObjSubmit()">
+          <div class="col-md-6">
+            <div class="input-block">
+              <label class="input-label">Name <em>*</em></label>
+              <input type="text" class="input-text" formControlName="name" />
+              <custom-validation-messages [control]="contactFG.controls.name" class="input-error"></custom-validation-messages>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-block">
+              <label class="input-label">Email <em>*</em></label>
+              <input type="text" class="input-text" formControlName="email" />
+              <custom-validation-messages [control]="contactFG.controls.email" class="input-error"></custom-validation-messages>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="input-block">
+              <label class="input-label">Company <em>*</em></label>
+              <input type="text" class="input-text" formControlName="company" />
+              <custom-validation-messages [control]="contactFG.controls.company" class="input-error"></custom-validation-messages>
+            </div>
+          </div>
+          <!-- <div class="col-sm-6">
+            <div class="input-block col-sm-3 ">
+              <label class="input-label">Code <em>*</em></label>
+
+              <select class="input-select" formControlName="mobile_number_one_code">
+                <option [value]="itemObj.dial_code + ' (' + itemObj.name + ')'" *ngFor="let itemObj of countriescode">
+                  {{ itemObj.dial_code }} ({{ itemObj.name }})</option>
+              </select>
+
+              <custom-validation-messages class="input-error" [control]="studentObjFG.controls.mobile_number_one_code">
+              </custom-validation-messages>
+            </div>
+            <div class="input-block col-sm-3">
+              <label class="input-label">Mobile Number <em>*</em></label>
+              <input type="text" class="input-text" customMobileNumber formControlName="mobile_number" />
+              <custom-validation-messages [control]="contactFG.controls.mobile_number" class="input-error"></custom-validation-messages>
+            </div>
+          </div> -->
+          <div class="col-sm-6 ">
+            <div class="mobile-block row">
+              <div class="input-block col-sm-5">
+                <label class="input-label">Code <em>*</em></label>
+
+                <select class="input-select" formControlName="mobile_number_code">
+                  <option [value]="itemObj.dial_code + ' (' + itemObj.name + ')'" *ngFor="let itemObj of countriescode">
+                    {{ itemObj.dial_code }} ({{ itemObj.name }})</option>
+                </select>
+
+                <custom-validation-messages class="input-error" [control]="contactFG.controls.mobile_number_code">
+                </custom-validation-messages>
+              </div>
+              <div class="input-block col-sm-7">
+                <label class="input-label">Mobile No <em>*</em></label>
+                <input type="text" class="input-text" customMobileNumber formControlName="mobile_number" />
+                <custom-validation-messages class="input-error" [control]="contactFG.controls.mobile_number">
+                </custom-validation-messages>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="input-block textarea-block">
+              <label class="input-label">Comment <em>*</em></label>
+              <textarea rows="4" cols="50" class="input-textarea" formControlName="comment"></textarea>
+              <custom-validation-messages [control]="contactFG.controls.comment" class="input-error"></custom-validation-messages>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="button-set">
+              <button type="submit" class="btn">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

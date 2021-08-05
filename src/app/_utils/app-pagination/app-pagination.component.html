@@ -1,0 +1,25 @@
+<ul *ngIf="paginationData.pages && paginationData.pages.length" class="pagination">
+  <li [ngClass]="{disabled:paginationData.currentPage === 1}">
+    <a (click)="changePage(1)">
+      |&lt;
+    </a>
+  </li>
+  <li [ngClass]="{disabled:paginationData.currentPage === 1}">
+    <a (click)="changePage(paginationData.currentPage - 1)">
+      &lt;
+    </a>
+  </li>
+  <li *ngFor="let page of paginationData.pages" [ngClass]="{active:paginationData.currentPage === page}">
+    <a (click)="changePage(page)">{{page}}</a>
+  </li>
+  <li [ngClass]="{disabled:paginationData.currentPage === paginationData.totalPages}">
+    <a (click)="changePage(paginationData.currentPage + 1)">
+      &gt;
+    </a>
+  </li>
+  <li [ngClass]="{disabled:paginationData.currentPage === paginationData.totalPages}">
+    <a (click)="changePage(paginationData.totalPages)">
+      &gt;|
+    </a>
+  </li>
+</ul>

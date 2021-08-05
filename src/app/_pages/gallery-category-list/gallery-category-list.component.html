@@ -1,0 +1,69 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>Gallery Category List</h2>
+    <button
+      (click)="openAddCategory()"
+      routerLinkActive="active"
+      class="btn"
+      title="Add Alumni"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div class="tab-content">
+    <div class="white-block">
+      <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+        <thead>
+          <th>
+            Gallery Category Name
+          </th>
+          <th>
+            Created By
+          </th>
+          <th>
+            updated By
+          </th>
+          <th>Edit</th>
+        </thead>
+        <tbody *ngIf="galleryCategory?.length === 0">
+          <tr>
+            <td colspan="5">{{ AppMessages.no_data_found_message }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="galleryCategory?.length > 0">
+          <tr *ngFor="let rowObj of galleryCategory">
+            <td>
+              {{ rowObj.gallery_category_name }}
+            </td>
+            <td *ngIf="rowObj.created_by_obj">
+              {{ rowObj.created_by_obj.first_name }}
+              {{ rowObj.created_by_obj.last_name }}
+            </td>
+            <td *ngIf="rowObj.updated_by_obj">
+              {{ rowObj.updated_by_obj.first_name }}
+              {{ rowObj.updated_by_obj.last_name }}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn"
+                [routerLink]="['/gallery_category', rowObj.idcategory]"
+                title="{{ AppMessages.edit_label }}"
+              >
+                <i class="fa fa-pencil "></i>
+              </button>
+              <!-- <button
+                type="button"
+                class="btn"
+                (click)="deleteConfirmFn(rowObj.idcategory)"
+                title="{{ AppMessages.delete_label }}"
+              >
+                <i class="fa fa-trash "></i>
+              </button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

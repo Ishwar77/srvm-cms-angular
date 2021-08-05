@@ -1,0 +1,28 @@
+<div class="gallery-popup-container" onlyNumberCustom>
+  <button class="btn close-btn" (click)="onNoClick()">
+    <i class="material-icons">close</i>
+  </button>
+  <p class="gallery-info">
+    <!-- <span> {{ gallaryobj.category_obj.gallery_category_name }} -</span> -->
+    {{ gallaryobj.title }}
+  </p>
+  <div class="image-slide-action" *ngIf="imagesLength > 1">
+    <button class="prev-btn" *ngIf="indexNum != 0" (click)="imgOnClick('prev')">
+      <span>‹</span>
+    </button>
+    <button class="next-btn" *ngIf="indexNum < imagesLength - 1" (click)="imgOnClick('next')">
+      <span>›</span>
+    </button>
+  </div>
+  <div *ngIf='gallaryobj.image_type==="image"'>
+    <div class="gallery-img">
+      <img src="{{ 'assets/images//cms_image/gallery/' + gallaryobj.gallery_image }}" onError="this.src='assets/images/user_avatar.png';" />
+    </div>
+  </div>
+  <div *ngIf='gallaryobj.image_type==="video"' class="center">
+    <iframe width="400" height="400" [src]="gallaryobj.video_url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <!-- <div *ngIf='gallaryobj.image_type==="video"' [innerHTML]="videosanitizer(gallaryobj.video_url)"> -->
+</div>

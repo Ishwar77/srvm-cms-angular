@@ -1,0 +1,45 @@
+<div class="admin-page-container">
+
+  <div *ngIf="statusImageUpload">
+    <div class="user-photo">
+      <span class="photo-area">
+        <img src="{{ 'assets/images/cms_image/gallery/thumb/' + galleryUpdateObj.gallery_image }}" onError="this.src='assets/images/user_avatar.png';" />
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<div class="jumbotron">
+  <div class="admin-page-container">
+    <div class="page-title">
+      <h2>Gallery Title Update</h2>
+    </div>
+    <form [formGroup]="galleryTitleObjFG" (ngSubmit)="saveFormEventSubmit()">
+
+      <div class="input-block col-sm-6">
+        <label class="input-label">Title <em>*</em></label>
+        <input type="text" class="input-text" formControlName="title" />
+        <custom-validation-messages class="input-error" [control]="galleryTitleObjFG.controls.title">
+        </custom-validation-messages>
+
+      </div>
+      <div class="button-set col-sm-12">
+        <span *ngIf="updateButton == false">
+          <button type="submit" class="btn">
+            Save
+          </button>
+        </span>
+        <span *ngIf="updateButton == true">
+          <button type="submit" class="btn">
+            Update
+          </button>
+        </span>
+
+        <button class="btn" (click)="onCancel()" type="reset">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

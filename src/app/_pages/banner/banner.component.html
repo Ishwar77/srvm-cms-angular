@@ -1,0 +1,63 @@
+<div class="jumbotron">
+  <div class="admin-page-container">
+    <div
+      class="photo-crop-container"
+      [class.hide-container]="!statusOpenImageDialog"
+    >
+      <div class="photo-crop-content bs-container">
+        <div class="col-sm-12 photo-crop-top">
+          <input
+            type="file"
+            id="selectImage"
+            (change)="fileChangeEvent($event)"
+          />
+          <div class="button-set">
+            <button class="btn btn-default btn-save" (click)="updateImage()">
+              Select
+            </button>
+            <button
+              class="btn btn-warning btn-cancel"
+              (click)="hideImageDialog()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-4 col-height">
+          <p *ngIf="fileValidStatus" class="img-format-error">
+            Please select valid file type - (png, bmp, jpeg, jpg)
+          </p>
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="3 / 1"
+            [resizeToWidth]="1600"
+            format="jpg"
+            (imageCropped)="imageCropped($event.base64)"
+          >
+          </image-cropper>
+        </div>
+        <div class="col-sm-8 col-height">
+          <img [src]="imageToSave" style="width:100%" />
+        </div>
+      </div>
+    </div>
+    <div class="input-block">
+      <div class="user-photo">
+        <span class="photo-area">
+          <img
+            [src]="imageToSave"
+            id="studentImage"
+            onError="this.src='assets/images/user_avatar.png';"
+          />
+        </span>
+        <span class="change-photo" (click)="showImageDialog()">Add Photo</span>
+      </div>
+    </div>
+    <!-- <div class="form-btn-set">
+<button  class="btn" (click)="submitButton()">
+  Submit
+</button>
+</div> -->
+  </div>
+</div>

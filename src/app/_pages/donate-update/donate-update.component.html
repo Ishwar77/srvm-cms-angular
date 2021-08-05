@@ -1,0 +1,26 @@
+<div class="jumbotron">
+  <form [formGroup]="donateObjFG" (ngSubmit)="saveFormDonateSubmit()">
+    <div class="col-sm-12">
+
+      <!-- <ckeditor [editor]="Editor" formControlName="content" class="full-descr-textarea">
+      </ckeditor> -->
+      <ckeditor debounce="500" formControlName="donate_text" [config]="ckEdiorConfig">
+      </ckeditor>
+
+      <custom-validation-messages class="input-error" [control]="donateObjFG.controls.donate_text">
+      </custom-validation-messages>
+    </div>
+
+    <div class="button-set col-sm-12">
+      <span *ngIf="updateButton == true">
+        <button type="submit" class="btn">
+          Update
+        </button>
+      </span>
+
+      <button class="btn" (click)="onCancel()" type="reset">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

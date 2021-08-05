@@ -1,0 +1,56 @@
+<!-- <div>
+  <h2>User Data</h2>
+</div>
+<div class="white-block">
+  <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+    <thead>
+      <th>
+        <strong>UserName</strong>
+      </th>
+      <th>
+        <strong>Role</strong>
+      </th>
+      <th>
+        <strong>Role</strong>
+      </th>
+      <th>
+        <strong>Role</strong>
+      </th>
+      <th>
+        <strong>Role</strong>
+      </th>
+      <th>
+        <strong>Role</strong>
+      </th>
+    </thead>
+
+    <tbody>
+      <tr *ngIf="userObj">
+        <td>
+          {{ userObj.name }}
+        </td>
+
+        <td>
+          {{ userObj.role }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+<div class="account-container">
+  <h1><strong>User Details </strong></h1>
+  <div class="info-shadow-block" *ngIf="userObj">
+    <p class="title">ID:{{ userObj.iduser }}</p>
+    <p class="title">Name:{{ userObj.first_name }}</p>
+    <p class="discipline-info">Dob :{{ userObj.dob }}</p>
+    <p class="discipline-info">Email: {{ userObj.email }}</p>
+    <p class="discipline-info">Gender :{{ userObj.gender }}</p>
+
+    <p class="discipline-info">Phone Number :{{ userObj.cell_number }}</p>
+    <!-- <p class="discipline-info">Region: {{ userObj.region }}</p> -->
+    <!-- <p class="discipline-info">Country :{{ userObj.country }}</p>
+    <p class="discipline-info">City: {{ userObj.city }}</p>
+    <p class="discipline-info">Address_One :{{ userObj.address_one }}</p>
+    <p class="discipline-info">Address_Two: {{ userObj.address_two }}</p> -->
+  </div>
+</div>

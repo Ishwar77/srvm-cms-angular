@@ -1,0 +1,158 @@
+<div class="jumbotron">
+  <div class="admin-page-container">
+    <div class="page-title">
+      <h2>Users</h2>
+    </div>
+
+    <form [formGroup]="userObjFG" (ngSubmit)="saveFormUserSubmit()">
+      <div class="input-block col-sm-4">
+        <label class="input-label">First Name <em>*</em></label>
+        <input class="input-text" type="text" formControlName="first_name" />
+        <custom-validation-messages
+          class="input-error"
+          [control]="userObjFG.controls.first_name"
+        ></custom-validation-messages>
+      </div>
+      <div class="input-block col-sm-4">
+        <label class="input-label"> Last Name <em>*</em></label>
+        <input class="input-text" type="text" formControlName="last_name" />
+        <custom-validation-messages
+          class="input-error"
+          [control]="userObjFG.controls.last_name"
+        ></custom-validation-messages>
+      </div>
+      <!-- <div class="input-block col-sm-4 ">
+        <label class="input-label">Role <em>*</em></label>
+        <select class="input-select" formControlName="role">
+          <option value="1">Master</option>
+        </select>
+         <custom-validation-messages class="input-error"
+          [control]="userObjFG.controls.role"
+        ></custom-validation-messages>
+      </div> -->
+      <div class="input-block col-sm-4">
+        <label class="input-label">Gender <em>*</em></label>
+        <input
+          type="radio"
+          formControlName="gender"
+          value="male"
+          id="male"
+          checked
+        />
+        <label for="male">Male </label>
+        <input
+          type="radio"
+          formControlName="gender"
+          value="female"
+          id="female"
+        />
+        <label for="female">Female </label>
+        <custom-validation-messages
+          class="input-error"
+          [control]="userObjFG.controls.gender"
+        ></custom-validation-messages>
+      </div>
+      <div class="mat-date-input col-sm-4 ">
+        <label class="input-label">DOB <em>*</em></label>
+        <mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dob"
+            readonly
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <custom-validation-messages
+          class="input-error"
+          class="input-error"
+          [control]="userObjFG.controls.dob"
+        ></custom-validation-messages>
+      </div>
+
+      <div class="input-block col-sm-4">
+        <label class="input-label">Mobile Number <em>*</em></label>
+        <input
+          type="text"
+          class="input-text"
+          customMobileNumber
+          formControlName="cell_number"
+        />
+        <custom-validation-messages
+          class="input-error"
+          [control]="userObjFG.controls.cell_number"
+        ></custom-validation-messages>
+      </div>
+      <div class="input-block col-sm-4">
+        <label class="input-label">Email ID <em>*</em></label>
+        <input type="text" class="input-text" formControlName="email" />
+        <custom-validation-messages
+          class="input-error"
+          [control]="userObjFG.controls.email"
+        ></custom-validation-messages>
+      </div>
+
+      <div class="input-block col-sm-4">
+        <label class="input-label"
+          >Password <span class="required-mark">*</span></label
+        >
+        <input
+          type="password"
+          class="input-text"
+          formControlName="password"
+          [(ngModel)]="userObj.password"
+        />
+        <custom-validation-messages
+          class="input-error"
+          class="input-error"
+          [control]="userObjFG.controls.password"
+        ></custom-validation-messages>
+      </div>
+      <div class="input-block col-sm-4">
+        <label class="input-label"
+          >Confirm Password <span class="required-mark">*</span></label
+        >
+        <input
+          type="password"
+          class="input-text"
+          formControlName="confirm_password"
+          [(ngModel)]="userObj.confirm_password"
+        />
+        <custom-validation-messages
+          class="input-error"
+          class="input-error"
+          [control]="userObjFG.controls.confirm_password"
+        ></custom-validation-messages>
+      </div>
+      <!-- <div class="input-block col-sm-4">
+        <label class="input-label"
+          >Confirm Password <span class="required-mark">*</span></label
+        >
+        <input
+          type="confirm_password"
+          class="input-text"
+          formControlName="confirm_password"
+          [(ngModel)]="userObj.confirm_password"
+        />
+        <custom-validation-messages
+          class="input-error"
+          class="input-error"
+          [control]="userObjFG.controls.confirm_password"
+        ></custom-validation-messages>
+      </div> -->
+
+      <div class="button-set col-sm-12">
+        <button type="submit" class="btn">
+          Save
+        </button>
+        <button class="btn" (click)="onCancelUserForm(userObjFG)" type="reset">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

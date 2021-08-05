@@ -1,0 +1,351 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>Alumni Details</h2>
+
+    <button (click)="openSaveUpdateDialog()" routerLinkActive="active" class="btn" title="Add Alumni">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <form [formGroup]="batchObjFG">
+    <div class="col-sm-3">
+      <div class="input-block">
+        <label class="input-label">Search</label>
+        <input class="input-text" type="text" formControlName="search_text" (input)="getFormDataValue()" />
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="input-block ">
+        <label class="input-label">Batch from</label>
+        <select (change)="generateYearsForDropDownTo()" class="input-select" formControlName="batch_from">
+          <option value="" disabled selected hidden>-- Select Option--</option>
+          <option [value]="itemObj" *ngFor="let itemObj of yearStringArrayfrom">{{ itemObj }}</option>
+        </select>
+        <custom-validation-messages class="input-error" [control]="batchObjFG.controls.batch_from">
+        </custom-validation-messages>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="input-block ">
+        <label class="input-label">Batch To</label>
+        <select class="input-select" formControlName="batch_to" (change)="getFormDataValue()">
+          <option value="" disabled selected hidden>-- Select Option--</option>
+          <option [value]="itemObj" *ngFor="let itemObj of yearStringArrayTo">{{
+            itemObj
+            }}</option>
+        </select>
+        <custom-validation-messages class="input-error" [control]="batchObjFG.controls.batch_to">
+        </custom-validation-messages>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="input-block ">
+        <label class="input-label">Academic</label>
+        <select class="input-select" formControlName="designation" (change)="getFormDataValue()">
+          <option value="Engineering">Engineering</option>
+          <option value="Medical">Medical</option>
+          <option value="Pure Sciences">Pure Sciences</option>
+          <option value="Commerce">Commerce</option>
+          <option value="Arts">Arts</option>
+          <option value="Bsc. Ag">Bsc. Ag</option>
+          <option value="Law">Law</option>
+          <option value="Others">Others</option>
+        </select>
+        <custom-validation-messages class="input-error" [control]="batchObjFG.controls.designation">
+        </custom-validation-messages>
+      </div>
+    </div>
+    <div class="button-set">
+      <button class="btn btn-default btn-save" (click)="onClickFormReset()">
+        Reset
+      </button>
+    </div>
+  </form>
+  <!-- <div class="button-set">
+    <a type="button" (click)="onClickwriteExcle()" target="_blank">
+      Alumini Data Excel Sheet Download
+    </a>
+  </div> -->
+
+  <div class="button-set">
+    <a type="button" (click)="onClickwriteExcleBySearch()" target="_blank">
+      Alumini Data Excel Sheet Download
+    </a>
+  </div>
+
+  <ul class="tsw-tabs tsw-4tab">
+    <li [class.active]="tabNumber === tabNumberArray[0]" (click)="tabSwitchFn(tabNumberArray[0]); onClickFormReset()">
+      New Register
+    </li>
+    <li [class.active]="tabNumber === tabNumberArray[1]" (click)="tabSwitchFn(tabNumberArray[1]); onClickFormReset()">
+      Approved
+    </li>
+    <li [class.active]="tabNumber === tabNumberArray[2]" (click)="tabSwitchFn(tabNumberArray[2]); onClickFormReset()">
+      Rejected
+    </li>
+  </ul>
+
+  <div class="tab-content" *ngIf="tabNumber === tabNumberArray[0]">
+    <div class="page-container">
+      <button (click)="generatePdf()">Download PDF</button>
+      <div>
+        <div class="white-block">
+          <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+            <thead>
+              <th width="100">
+                ID
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Batch
+              </th>
+              <th>
+                Mobile Number
+              </th>
+              <th>
+                Email ID
+              </th>
+              <th>
+                Submitted Date
+              </th>
+
+              <th width="240">Action</th>
+            </thead>
+            <tbody *ngIf="studentList?.length === 0">
+              <tr>
+                <td colspan="5">{{ AppMessages.no_data_found_message }}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="studentList?.length > 0">
+              <tr *ngFor="let rowObj of studentList" (click)="openDialogGallery(rowObj)">
+                <td>
+                  {{ rowObj.unique_id }}
+                </td>
+                <td>{{ rowObj.first_name }} {{ rowObj.last_name }}</td>
+                <td>{{ rowObj.batch_from }} - {{ rowObj.batch_to }}</td>
+
+                <td>
+                  <span>{{ rowObj.mobile_number_one_code }}-{{
+                    rowObj.mobile_number_one
+                    }}</span><span *ngIf="
+                      rowObj.mobile_number_two && rowObj.mobile_number_two_code
+                    ">,
+                    {{ rowObj.mobile_number_two_code }}-{{
+                    rowObj.mobile_number_two
+                    }}</span>
+                </td>
+                <td>
+                  <span>{{ rowObj.email_id_one }}</span><span *ngIf="rowObj.email_id_two">,
+                    {{ rowObj.email_id_two }}</span>
+                </td>
+                <td>{{ getDateFormat(rowObj.create_timestamp) }}</td>
+                <td>
+                  <div class="user-status">
+                    <span class="  active" (click)="
+                        $event.stopPropagation();
+                        approvedConfirmFn(rowObj.idstudent)
+                      ">Approve</span>
+
+                    <span class="active" (click)="
+                        $event.stopPropagation();
+                        rejectConfirmFn(rowObj.idstudent)
+                      ">Reject</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ts-pagination-container">
+            <app-pagination [count]="StudentTotalDataCount" [limit]="StudentLimit" [activePage]="studentCurrentPageno"
+              (changePageEvent)="getStudentListByPageNo($event)">
+            </app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" *ngIf="tabNumber === tabNumberArray[1]">
+    <div class="page-container">
+      <button (click)="generatePdf()">Download PDF</button>
+      <div>
+        <div class="white-block">
+          <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+            <thead>
+              <th width="100">
+                ID
+              </th>
+              <th>
+                First Name
+              </th>
+              <th>
+                Last Name
+              </th>
+              <th>
+                Batch
+              </th>
+
+              <th>
+                Mobile Number
+              </th>
+              <th>
+                Email_id
+              </th>
+
+              <th>
+                Status
+              </th>
+              <th></th>
+            </thead>
+            <tbody *ngIf="studentList?.length === 0">
+              <tr>
+                <td colspan="5">{{ AppMessages.no_data_found_message }}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="studentList?.length > 0">
+              <tr *ngFor="let rowObj of studentList" (click)="openDialogGallery(rowObj)">
+                <td>
+                  {{ rowObj.unique_id }}
+                </td>
+                <td>
+                  {{ rowObj.first_name }}
+                </td>
+                <td>
+                  {{ rowObj.last_name }}
+                </td>
+
+                <td>{{ rowObj.batch_from }} - {{ rowObj.batch_to }}</td>
+                <td>
+                  <span>{{ rowObj.mobile_number_one_code }}-{{
+                    rowObj.mobile_number_one
+                    }}</span><span *ngIf="
+                      rowObj.mobile_number_two && rowObj.mobile_number_two_code
+                    ">,
+                    {{ rowObj.mobile_number_two_code }}-{{
+                    rowObj.mobile_number_two
+                    }}</span>
+                </td>
+                <td>
+                  <span>{{ rowObj.email_id_one }}</span><span *ngIf="rowObj.email_id_two">,
+                    {{ rowObj.email_id_two }}</span>
+                </td>
+                <td>
+                  {{ rowObj.status }}
+                </td>
+                <td>
+
+                  <p class="user-status">
+                    <span class=" active" (click)="
+                        $event.stopPropagation();
+                        rejectConfirmFn(rowObj.idstudent)
+                      ">Reject</span>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ts-pagination-container">
+            <app-pagination [count]="StudentTotalDataCount" [limit]="StudentLimit" [activePage]="studentCurrentPageno"
+              (changePageEvent)="getStudentListByPageNo($event)">
+            </app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" *ngIf="tabNumber === tabNumberArray[2]">
+    <div class="page-container">
+      <button (click)="generatePdf()">Download PDF</button>
+      <div>
+        <div class="white-block">
+          <table border="0" cellpadding="0" cellspacing="0" class="gig-table">
+            <thead>
+              <th width="100">
+                ID
+              </th>
+              <th>
+                First Name
+              </th>
+              <th>
+                Last Name
+              </th>
+              <th>
+                Batch
+              </th>
+
+              <th>
+                Mobile Number
+              </th>
+              <th>
+                Email_id
+              </th>
+
+              <th>
+                Status
+              </th>
+              <th width="240">Action</th>
+            </thead>
+            <tbody *ngIf="studentList?.length === 0">
+              <tr>
+                <td colspan="5">{{ AppMessages.no_data_found_message }}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="studentList?.length > 0">
+              <tr *ngFor="let rowObj of studentList" (click)="openDialogGallery(rowObj)">
+                <td>
+                  {{ rowObj.unique_id }}
+                </td>
+                <td>
+                  {{ rowObj.first_name }}
+                </td>
+                <td>
+                  {{ rowObj.last_name }}
+                </td>
+
+                <td>{{ rowObj.batch_from }} - {{ rowObj.batch_to }}</td>
+                <td>
+                  <span>{{ rowObj.mobile_number_one_code }}-{{
+                    rowObj.mobile_number_one
+                    }}</span><span *ngIf="
+                      rowObj.mobile_number_two && rowObj.mobile_number_two_code
+                    ">,
+                    {{ rowObj.mobile_number_two_code }}-{{
+                    rowObj.mobile_number_two
+                    }}</span>
+                </td>
+                <td>
+                  <span>{{ rowObj.email_id_one }}</span><span *ngIf="rowObj.email_id_two">,
+                    {{ rowObj.email_id_two }}</span>
+                </td>
+                <td>
+                  {{ rowObj.status }}
+                </td>
+                <td>
+                  <div class="user-status">
+                    <span class="  active" (click)="
+                        $event.stopPropagation();
+                        approvedConfirmFn(rowObj.idstudent)
+                      ">Approve</span>
+
+                    <span class="active" (click)="
+                        $event.stopPropagation();
+                        activateConfirmFn(rowObj.idstudent)
+                      ">Delete</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ts-pagination-container">
+            <app-pagination [count]="StudentTotalDataCount" [limit]="StudentLimit" [activePage]="studentCurrentPageno"
+              (changePageEvent)="getStudentListByPageNo($event)">
+            </app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

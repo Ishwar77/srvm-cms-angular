@@ -1,0 +1,33 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>Banner</h2>
+    <button
+      (click)="openSaveUpdateDialog()"
+      routerLinkActive="active"
+      class="btn"
+      title="Add Event"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let rowObj of bannerList">
+      <div class="banner-img ">
+        <img
+          src="{{ 'assets/images/' + rowObj.banner_image }}"
+          onError="this.src='assets/images/user_avatar.png';"
+        />
+      </div>
+      <div class="action">
+        <a
+          *ngIf="buttonDiasable == false"
+          (click)="activateConfirmFn(rowObj.idbanner)"
+          title="{{ AppMessages.delete_label }}"
+        >
+          <i class="fa fa-trash "></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

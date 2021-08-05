@@ -1,0 +1,72 @@
+<div class="admin-page-container">
+  <div class="page-title">
+    <h2>Gallery</h2>
+    <button
+      class="btn"
+      title="Add Category"
+      routerLinkActive="active"
+      routerLink="/gallery_category_list"
+      *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div>
+    <ul
+      class="category-list"
+      *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+    >
+      <ng-container *ngFor="let rowObj of totalCat">
+        <!-- <li [routerLink]="['/gallery_overview_details', rowObj.catId]"> -->
+          <li (click)="gotoGalleryOverviewDetailsFn(rowObj.catId)">
+          <div class="list-content">
+            <span
+              class="img"
+              [ngStyle]="{
+                'background-image': !rowObj.catImg
+                  ? 'none'
+                  : 'url(\'assets/images/cms_image/gallery/thumb/' +
+                    rowObj.catImg +
+                    '\')'
+              }"
+            >
+              <span *ngIf="!rowObj.catImg">No Image(s)</span>
+            </span>
+            <!-- ng-style="{ 'background-image' : (rowObj.catImg) ? 'url(assets/images/' + rowObj.catImg  ')' }" -->
+            <p class="img-title">
+              {{ rowObj.catName }}
+            </p>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="category-list" *ngIf="!roleId">
+      <ng-container *ngFor="let rowObj of totalCat">
+        <!-- <li [routerLink]="['/gallery_overview_details', rowObj.catId]"> -->
+           <li (click)="gotoGalleryOverviewDetailsFn(rowObj.catId)">
+          <div class="list-content" *ngIf="rowObj.catImg">
+            <span
+              class="img"
+              [style.backgroundImage]="
+                'url(' +
+                'assets/images/cms_image/gallery/thumb/' +
+                rowObj.catImg +
+                ')'
+              "
+            ></span>
+
+            <p class="img-title">
+              {{ rowObj.catName }}
+            </p>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

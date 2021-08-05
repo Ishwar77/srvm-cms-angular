@@ -1,0 +1,52 @@
+/* ------ Account ------ */
+.account-container {
+  padding: 10px 30px;
+}
+.account-container h1 {
+  font-size: 20px;
+  margin: 0 0 15px;
+}
+.info-shadow-block {
+  border-radius: 5px;
+  box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 0 0 20px;
+  background: #fff;
+}
+.info-shadow-block p.title {
+  font-weight: 600;
+}
+.info-shadow-block p.title span.alert-icon {
+  float: right;
+  display: none;
+}
+.info-shadow-block p.title span.alert-icon i {
+  font-size: 20px;
+  color: #ffbe31;
+}
+.info-shadow-block p.payment-ammount {
+  font-size: 34px;
+  color: #b1b1b1;
+  font-weight: 100;
+  margin: 5px 0;
+}
+.info-shadow-block p.date span.arrow-icon {
+  float: right;
+  color: #4ebceb;
+}
+.info-shadow-block p.date span.arrow-icon i {
+  font-size: 30px;
+  line-height: 20px;
+  width: 20px;
+}
+.info-shadow-block.payment-alert {
+  background: #fffcd6;
+  border: 1px solid #ffd375;
+}
+.info-shadow-block.payment-alert p.payment-type span.alert-icon {
+  display: 10px;
+}
+.info-shadow-block p.discipline-info {
+  margin: 10px;
+}

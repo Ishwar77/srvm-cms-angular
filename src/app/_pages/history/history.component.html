@@ -1,0 +1,25 @@
+<div class="history-container" *ngFor="let rowObj of historylist">
+  <div class="history-content">
+    <div class="history-sm-banner">
+      <img src="assets/images/history-sm-banner.png" />
+    </div>
+    <div class="h-content">
+      <h1>History</h1>
+      <p [innerHtml]="rowObj.content"></p>
+    </div>
+  </div>
+  <div class="button-set">
+    <button
+      *ngIf="
+        roleId === AppConstants.UROLE_MASTER_ID ||
+        roleId === AppConstants.UROLE_ADMIN_ID
+      "
+      type="button"
+      class="btn"
+      [routerLink]="['/history_save_update', rowObj.idhistory]"
+      title="{{ AppMessages.edit_label }}"
+    >
+      <i class="material-icons">edit</i>
+    </button>
+  </div>
+</div>
